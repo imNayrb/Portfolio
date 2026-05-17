@@ -712,6 +712,7 @@ body.cursor-hover .cursor-follower {
 .role-typed {
   color: var(--accent-cyan);
   font-family: var(--font-mono);
+  font-size: 0.9em;
 }
 
 .role-cursor {

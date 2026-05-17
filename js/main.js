@@ -164,7 +164,7 @@ function initTypedText() {
   const el = document.getElementById('typedText');
   if (!el) return;
 
-  const words = ['Developer', 'Designer', 'Architect', 'Problem Solver'];
+  const words = ['Full Stack Developer', 'UX/UI Designer', 'Process Architect'];
   let wordIndex = 0;
   let charIndex = 0;
   let deleting  = false;
