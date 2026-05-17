@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <rect width="48" height="48" rx="12" fill="#0d0d1a"/>
+  <text x="24" y="33" font-family="Inter, sans-serif" font-size="22" font-weight="900"
+        text-anchor="middle" fill="#2563eb">{</text>
+  <text x="24" y="33" font-family="Inter, sans-serif" font-size="14" font-weight="900"
+        text-anchor="middle" fill="#f0f0ff" dx="0" dy="-2">YN</text>
+  <text x="24" y="33" font-family="Inter, sans-serif" font-size="22" font-weight="900"
+        text-anchor="middle" fill="#2563eb">}</text>
+</svg>

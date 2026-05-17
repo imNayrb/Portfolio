@@ -1,0 +1,24 @@
+# Netlify / Cloudflare Pages — Security Headers
+# Copia questo file nella root del repo per applicare gli header di sicurezza.
+# GitHub Pages NON supporta header personalizzati lato server.
+# Per GitHub Pages puro, valuta il deploy su Netlify o Cloudflare Pages.
+
+/*
+  # Previene clickjacking (embedding del sito in iframe altrui)
+  X-Frame-Options: DENY
+
+  # Blocca sniffing MIME type (attacchi via upload file)
+  X-Content-Type-Options: nosniff
+
+  # Limita referrer nelle richieste cross-origin
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Disabilita funzionalità browser non necessarie (riduce superficie d'attacco)
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+
+  # HSTS: forza HTTPS per 1 anno (attiva solo dopo aver verificato HTTPS funzionante)
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # Content Security Policy
+  # Adatta 'connect-src' al tuo provider form (Formspree, Netlify Forms, ecc.)
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; form-action https://formspree.io;

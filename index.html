@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio di [Il Tuo Nome] — Sviluppatore Full Stack & UI/UX Designer. Progetti innovativi, tecnologie moderne, soluzioni d'impatto." />
+  <meta name="author" content="[Il Tuo Nome]" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="[Il Tuo Nome] — Developer Portfolio" />
+  <meta property="og:description" content="Full Stack Developer & UI/UX Designer. Costruisco esperienze digitali che fanno la differenza." />
+  <meta property="og:image" content="assets/images/og-preview.png" />
+  <meta property="og:url" content="https://tuousername.github.io/portfolio" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="[Il Tuo Nome] — Developer Portfolio" />
+  <meta name="twitter:description" content="Full Stack Developer & UI/UX Designer." />
+
+  <!--
+    SECURITY HEADERS NOTE:
+    Per GitHub Pages (statico), gli header HTTP non sono configurabili lato server.
+    Per un controllo completo degli header di sicurezza (CSP, X-Frame-Options, ecc.),
+    considera di deployare su Netlify o Cloudflare Pages usando i file _headers o netlify.toml.
+    Vedi: /docs/security-headers.md per la configurazione raccomandata.
+
+    Header raccomandati da aggiungere nel file _headers (Netlify) o netlify.toml:
+      Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://formspree.io;
+      X-Frame-Options: DENY
+      X-Content-Type-Options: nosniff
+      Referrer-Policy: strict-origin-when-cross-origin
+      Permissions-Policy: camera=(), microphone=(), geolocation=()
+  -->
+  <!-- Clickjacking mitigation via meta (limitata, ma utile per Pages) -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <title>[Il Tuo Nome] — Developer Portfolio</title>
+
+  <!-- Preconnect per Google Fonts (performance) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+</head>
+<body>
+
+  <!-- ========== CURSOR PERSONALIZZATO ========== -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" id="cursorFollower" aria-hidden="true"></div>
+
+  <!-- ========== LOADING SCREEN ========== -->
+  <div class="loading-screen" id="loadingScreen" aria-hidden="true">
+    <div class="loading-content">
+      <div class="loading-logo">
+        <span class="loading-bracket">{</span>
+        <span class="loading-initials">YN</span>
+        <span class="loading-bracket">}</span>
+      </div>
+      <div class="loading-bar">
+        <div class="loading-progress" id="loadingProgress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <header class="nav-header" id="navHeader" role="banner">
+    <nav class="nav-container" aria-label="Navigazione principale">
+      <a href="#hero" class="nav-logo" aria-label="Torna all'inizio">
+        <span class="nav-logo-bracket">{</span>
+        <span class="nav-logo-initials">YN</span>
+        <span class="nav-logo-bracket">}</span>
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="#contact" class="nav-link">Contatti</a></li>
+      </ul>
+
+      <a href="#contact" class="btn btn-primary btn-sm nav-cta">
+        Parliamo <span class="btn-arrow">→</span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Apri menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+      </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu mobile" aria-hidden="true">
+      <ul class="mobile-links" role="list">
+        <li><a href="#about" class="mobile-link">About</a></li>
+        <li><a href="#skills" class="mobile-link">Skills</a></li>
+        <li><a href="#portfolio" class="mobile-link">Portfolio</a></li>
+        <li><a href="#contact" class="mobile-link">Contatti</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero" id="hero" aria-label="Presentazione">
+      <!-- Canvas per particelle animate -->
+      <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+
+      <!-- Sfere di sfondo animate -->
+      <div class="hero-orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-badge reveal-up">
+          <span class="badge-dot"></span>
+          <span>Disponibile per nuovi progetti</span>
+        </div>
+
+        <h1 class="hero-title reveal-up" style="--delay: 0.1s">
+          <span class="title-line">Ciao, sono</span>
+          <span class="title-name gradient-text">[Il Tuo Nome]</span>
+          <span class="title-role">
+            <span class="role-static">Full Stack </span>
+            <span class="role-typed" id="typedText" aria-live="polite"></span>
+            <span class="role-cursor" aria-hidden="true">|</span>
+          </span>
+        </h1>
+
+        <p class="hero-description reveal-up" style="--delay: 0.2s">
+          Trasformo idee complesse in esperienze digitali eleganti e performanti.
+          Specializzato in architetture scalabili, UI/UX di impatto e soluzioni
+          che portano risultati reali.
+        </p>
+
+        <div class="hero-actions reveal-up" style="--delay: 0.3s">
+          <a href="#portfolio" class="btn btn-primary btn-lg">
+            Scopri i miei progetti
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="#contact" class="btn btn-ghost btn-lg">
+            Contattami
+          </a>
+        </div>
+
+        <div class="hero-stats reveal-up" style="--delay: 0.4s">
+          <div class="stat-item">
+            <span class="stat-number" data-target="20">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Progetti completati</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="5">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Anni di esperienza</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="12">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Clienti soddisfatti</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <div class="scroll-line"></div>
+        <span>Scorri</span>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT SECTION ========== -->
+    <section class="about section" id="about" aria-label="Chi sono">
+      <div class="container">
+        <div class="section-header reveal-up">
+          <span class="section-tag">// Chi sono</span>
+          <h2 class="section-title">Il mio approccio al <span class="gradient-text">design & sviluppo</span></h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text reveal-left">
+            <p class="about-lead">
+              Sono un developer con la passione per il design. Non mi limito a
+              scrivere codice funzionante — creo prodotti che le persone amano usare.
+            </p>
+            <p>
+              La mia filosofia: ogni linea di codice deve servire uno scopo, ogni
+              scelta di design deve essere motivata. Lavoro all'intersezione tra
+              ingegneria e creatività, dove nascono i prodotti che fanno la differenza.
+            </p>
+            <p>
+              Quando non codifico, studia architetture di sistema, esploro nuove
+              tecnologie e contribuisce a progetti open source.
+            </p>
+
+            <div class="about-highlights">
+              <div class="highlight-item">
+                <span class="highlight-icon" aria-hidden="true">⚡</span>
+                <div>
+                  <strong>Performance-first</strong>
+                  <span>Ogni millisecondo conta per l'UX</span>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon" aria-hidden="true">🔒</span>
+                <div>
+                  <strong>Security by design</strong>
+                  <span>La sicurezza non è un'aggiunta, è la base</span>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon" aria-hidden="true">♿</span>
+                <div>
+                  <strong>Accessibilità</strong>
+                  <span>Prodotti inclusivi per tutti gli utenti</span>
+                </div>
+              </div>
+            </div>
+
+            <a href="assets/cv-tuonome.pdf" class="btn btn-secondary" download aria-label="Scarica il mio CV in PDF">
+              Scarica CV <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+
+          <div class="about-visual reveal-right">
+            <div class="about-card-wrapper">
+              <!-- Card principale -->
+              <div class="about-card glass-card">
+                <div class="about-avatar">
+                  <img
+                    src="assets/images/avatar-placeholder.jpg"
+                    alt="Foto di [Il Tuo Nome]"
+                    width="120"
+                    height="120"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <!-- Fallback avatar SVG -->
+                  <div class="avatar-fallback" style="display:none" aria-hidden="true">YN</div>
+                </div>
+                <div class="about-card-info">
+                  <h3>[Il Tuo Nome]</h3>
+                  <span class="card-role">Full Stack Developer</span>
+                  <div class="card-location">
+                    <span aria-hidden="true">📍</span> [La tua città], Italia
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card floating: tecnologia preferita -->
+              <div class="floating-card glass-card fc-top reveal-up" style="--delay: 0.3s" aria-hidden="true">
+                <span class="fc-icon">💻</span>
+                <div>
+                  <div class="fc-label">Stack preferito</div>
+                  <div class="fc-value">React + Node.js</div>
+                </div>
+              </div>
+
+              <!-- Card floating: disponibilità -->
+              <div class="floating-card glass-card fc-bottom reveal-up" style="--delay: 0.5s" aria-hidden="true">
+                <span class="status-dot"></span>
+                <div>
+                  <div class="fc-label">Status</div>
+                  <div class="fc-value">Disponibile Freelance</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SKILLS SECTION ========== -->
+    <section class="skills section" id="skills" aria-label="Competenze tecniche">
+      <div class="container">
+        <div class="section-header reveal-up">
+          <span class="section-tag">// Le mie skills</span>
+          <h2 class="section-title">Tecnologie e <span class="gradient-text">strumenti</span></h2>
+          <p class="section-subtitle">Un arsenale tecnico moderno per affrontare qualsiasi sfida</p>
+        </div>
+
+        <div class="skills-categories">
+          <!-- Frontend -->
+          <div class="skill-category reveal-up" style="--delay: 0s">
+            <div class="skill-cat-header">
+              <span class="skill-cat-icon" aria-hidden="true">🎨</span>
+              <h3>Frontend</h3>
+            </div>
+            <div class="skill-pills">
+              <span class="skill-pill" data-level="95">React</span>
+              <span class="skill-pill" data-level="90">TypeScript</span>
+              <span class="skill-pill" data-level="88">Next.js</span>
+              <span class="skill-pill" data-level="85">Vue.js</span>
+              <span class="skill-pill" data-level="92">CSS/Sass</span>
+              <span class="skill-pill" data-level="80">Tailwind</span>
+              <span class="skill-pill" data-level="75">Three.js</span>
+            </div>
+          </div>
+
+          <!-- Backend -->
+          <div class="skill-category reveal-up" style="--delay: 0.1s">
+            <div class="skill-cat-header">
+              <span class="skill-cat-icon" aria-hidden="true">⚙️</span>
+              <h3>Backend</h3>
+            </div>
+            <div class="skill-pills">
+              <span class="skill-pill" data-level="90">Node.js</span>
+              <span class="skill-pill" data-level="85">Python</span>
+              <span class="skill-pill" data-level="80">FastAPI</span>
+              <span class="skill-pill" data-level="78">PostgreSQL</span>
+              <span class="skill-pill" data-level="75">MongoDB</span>
+              <span class="skill-pill" data-level="82">Redis</span>
+              <span class="skill-pill" data-level="70">GraphQL</span>
+            </div>
+          </div>
+
+          <!-- DevOps & Tools -->
+          <div class="skill-category reveal-up" style="--delay: 0.2s">
+            <div class="skill-cat-header">
+              <span class="skill-cat-icon" aria-hidden="true">🚀</span>
+              <h3>DevOps & Tools</h3>
+            </div>
+            <div class="skill-pills">
+              <span class="skill-pill" data-level="85">Docker</span>
+              <span class="skill-pill" data-level="78">Git/GitHub</span>
+              <span class="skill-pill" data-level="72">AWS</span>
+              <span class="skill-pill" data-level="75">CI/CD</span>
+              <span class="skill-pill" data-level="80">Linux</span>
+              <span class="skill-pill" data-level="70">Kubernetes</span>
+              <span class="skill-pill" data-level="85">Figma</span>
+            </div>
+          </div>
+
+          <!-- Security -->
+          <div class="skill-category reveal-up" style="--delay: 0.3s">
+            <div class="skill-cat-header">
+              <span class="skill-cat-icon" aria-hidden="true">🔐</span>
+              <h3>Security</h3>
+            </div>
+            <div class="skill-pills">
+              <span class="skill-pill" data-level="80">OWASP</span>
+              <span class="skill-pill" data-level="75">Pentesting</span>
+              <span class="skill-pill" data-level="78">JWT/OAuth</span>
+              <span class="skill-pill" data-level="72">Cryptography</span>
+              <span class="skill-pill" data-level="76">HTTPS/TLS</span>
+              <span class="skill-pill" data-level="70">CSP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PORTFOLIO SECTION ========== -->
+    <section class="portfolio section" id="portfolio" aria-label="Portfolio progetti">
+      <div class="container">
+        <div class="section-header reveal-up">
+          <span class="section-tag">// I miei progetti</span>
+          <h2 class="section-title">Lavori <span class="gradient-text">selezionati</span></h2>
+          <p class="section-subtitle">Ogni progetto è una storia di problem solving e creatività</p>
+        </div>
+
+        <!-- Filtri portfolio -->
+        <div class="portfolio-filters reveal-up" role="group" aria-label="Filtra progetti per categoria">
+          <button class="filter-btn active" data-filter="all" aria-pressed="true">Tutti</button>
+          <button class="filter-btn" data-filter="web" aria-pressed="false">Web App</button>
+          <button class="filter-btn" data-filter="mobile" aria-pressed="false">Mobile</button>
+          <button class="filter-btn" data-filter="design" aria-pressed="false">UI/UX</button>
+          <button class="filter-btn" data-filter="ai" aria-pressed="false">AI/ML</button>
+        </div>
+
+        <div class="portfolio-grid" id="portfolioGrid">
+
+          <!-- PROGETTO 1 — Featured -->
+          <article class="project-card featured glass-card reveal-up" data-category="web" style="--delay: 0s">
+            <div class="project-media">
+              <div class="project-img-wrapper">
+                <!-- Sostituire con img reale: <img src="assets/images/project-1.jpg" alt="Screenshot del progetto NomeApp" width="800" height="500" loading="lazy" /> -->
+                <div class="project-placeholder" aria-hidden="true">
+                  <div class="placeholder-icon">🌐</div>
+                  <div class="placeholder-label">Screenshot Progetto</div>
+                </div>
+                <div class="project-overlay">
+                  <div class="overlay-content">
+                    <a href="#" class="overlay-btn" aria-label="Scopri il progetto NomeApp">
+                      Scopri il progetto →
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <span class="project-badge">Featured</span>
+            </div>
+
+            <div class="project-content">
+              <div class="project-meta">
+                <span class="project-number">01</span>
+                <span class="project-year">2024</span>
+              </div>
+              <h3 class="project-title">NomeApp — Piattaforma SaaS</h3>
+              <p class="project-description">
+                Una piattaforma SaaS completa per la gestione della produttività aziendale.
+                Dashboard in tempo reale, autenticazione multi-tenancy, API RESTful scalabile
+                e un sistema di notifiche push end-to-end crittografate. Riduzione del 40%
+                del tempo operativo per i clienti.
+              </p>
+              <div class="project-tags" aria-label="Tecnologie usate">
+                <span class="tag">React</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">PostgreSQL</span>
+                <span class="tag">Docker</span>
+                <span class="tag">AWS</span>
+              </div>
+              <div class="project-actions">
+                <a href="#"
+                   class="btn btn-primary btn-sm"
+                   rel="noopener noreferrer"
+                   aria-label="Scopri il progetto NomeApp in dettaglio">
+                  Scopri il Progetto <span aria-hidden="true">→</span>
+                </a>
+                <a href="#"
+                   class="btn btn-demo btn-sm"
+                   rel="noopener noreferrer"
+                   aria-label="Vedi la demo live di NomeApp (prossimamente disponibile)"
+                   data-coming-soon="true">
+                  <span class="demo-dot" aria-hidden="true"></span>
+                  Demo Live <span class="coming-soon-badge" aria-label="Prossimamente">Soon</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROGETTO 2 -->
+          <article class="project-card glass-card reveal-up" data-category="ai" style="--delay: 0.1s">
+            <div class="project-media">
+              <div class="project-img-wrapper">
+                <div class="project-placeholder" aria-hidden="true">
+                  <div class="placeholder-icon">🤖</div>
+                  <div class="placeholder-label">AI Dashboard</div>
+                </div>
+                <div class="project-overlay">
+                  <div class="overlay-content">
+                    <a href="#" class="overlay-btn" aria-label="Scopri il progetto AIAnalytics">
+                      Scopri il progetto →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta">
+                <span class="project-number">02</span>
+                <span class="project-year">2024</span>
+              </div>
+              <h3 class="project-title">AIAnalytics — Dashboard ML</h3>
+              <p class="project-description">
+                Sistema di analisi predittiva con machine learning per dati e-commerce.
+                Pipeline ETL automatizzata, visualizzazioni interattive e modelli di
+                raccomandazione che hanno aumentato il CTR del 28%.
+              </p>
+              <div class="project-tags" aria-label="Tecnologie usate">
+                <span class="tag">Python</span>
+                <span class="tag">FastAPI</span>
+                <span class="tag">TensorFlow</span>
+                <span class="tag">Redis</span>
+              </div>
+              <div class="project-actions">
+                <a href="#"
+                   class="btn btn-primary btn-sm"
+                   rel="noopener noreferrer"
+                   aria-label="Scopri il progetto AIAnalytics in dettaglio">
+                  Scopri il Progetto <span aria-hidden="true">→</span>
+                </a>
+                <a href="#"
+                   class="btn btn-demo btn-sm"
+                   rel="noopener noreferrer"
+                   data-coming-soon="true"
+                   aria-label="Demo di AIAnalytics prossimamente disponibile">
+                  <span class="demo-dot" aria-hidden="true"></span>
+                  Demo Live <span class="coming-soon-badge">Soon</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROGETTO 3 -->
+          <article class="project-card glass-card reveal-up" data-category="mobile" style="--delay: 0.2s">
+            <div class="project-media">
+              <div class="project-img-wrapper">
+                <div class="project-placeholder" aria-hidden="true">
+                  <div class="placeholder-icon">📱</div>
+                  <div class="placeholder-label">Mobile App</div>
+                </div>
+                <div class="project-overlay">
+                  <div class="overlay-content">
+                    <a href="#" class="overlay-btn" aria-label="Scopri il progetto FinanceApp">
+                      Scopri il progetto →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta">
+                <span class="project-number">03</span>
+                <span class="project-year">2023</span>
+              </div>
+              <h3 class="project-title">FinanceApp — Gestione Budgeting</h3>
+              <p class="project-description">
+                App mobile cross-platform per la gestione finanziaria personale.
+                Categorizzazione automatica delle spese, goal tracking, grafici
+                interattivi e sincronizzazione cloud real-time.
+              </p>
+              <div class="project-tags" aria-label="Tecnologie usate">
+                <span class="tag">React Native</span>
+                <span class="tag">Firebase</span>
+                <span class="tag">TypeScript</span>
+              </div>
+              <div class="project-actions">
+                <a href="#"
+                   class="btn btn-primary btn-sm"
+                   rel="noopener noreferrer"
+                   aria-label="Scopri il progetto FinanceApp in dettaglio">
+                  Scopri il Progetto <span aria-hidden="true">→</span>
+                </a>
+                <a href="#"
+                   class="btn btn-demo btn-sm"
+                   rel="noopener noreferrer"
+                   data-coming-soon="true"
+                   aria-label="Demo di FinanceApp prossimamente disponibile">
+                  <span class="demo-dot" aria-hidden="true"></span>
+                  Demo Live <span class="coming-soon-badge">Soon</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROGETTO 4 -->
+          <article class="project-card glass-card reveal-up" data-category="design" style="--delay: 0.3s">
+            <div class="project-media">
+              <div class="project-img-wrapper">
+                <div class="project-placeholder" aria-hidden="true">
+                  <div class="placeholder-icon">🎨</div>
+                  <div class="placeholder-label">UI/UX Design</div>
+                </div>
+                <div class="project-overlay">
+                  <div class="overlay-content">
+                    <a href="#" class="overlay-btn" aria-label="Scopri il progetto DesignSystem">
+                      Scopri il progetto →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta">
+                <span class="project-number">04</span>
+                <span class="project-year">2023</span>
+              </div>
+              <h3 class="project-title">DesignSystem — Component Library</h3>
+              <p class="project-description">
+                Design system completo per startup fintech. 80+ componenti
+                documentati, token di design sistematizzati, accessibilità WCAG 2.1 AA
+                e integrazione con Storybook per lo sviluppo collaborativo.
+              </p>
+              <div class="project-tags" aria-label="Tecnologie usate">
+                <span class="tag">Figma</span>
+                <span class="tag">React</span>
+                <span class="tag">Storybook</span>
+                <span class="tag">WCAG 2.1</span>
+              </div>
+              <div class="project-actions">
+                <a href="#"
+                   class="btn btn-primary btn-sm"
+                   rel="noopener noreferrer"
+                   aria-label="Scopri il progetto DesignSystem in dettaglio">
+                  Scopri il Progetto <span aria-hidden="true">→</span>
+                </a>
+                <a href="#"
+                   class="btn btn-demo btn-sm"
+                   rel="noopener noreferrer"
+                   data-coming-soon="true"
+                   aria-label="Demo di DesignSystem prossimamente disponibile">
+                  <span class="demo-dot" aria-hidden="true"></span>
+                  Demo Live <span class="coming-soon-badge">Soon</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROGETTO 5 -->
+          <article class="project-card glass-card reveal-up" data-category="web" style="--delay: 0.4s">
+            <div class="project-media">
+              <div class="project-img-wrapper">
+                <div class="project-placeholder" aria-hidden="true">
+                  <div class="placeholder-icon">🛒</div>
+                  <div class="placeholder-label">E-Commerce</div>
+                </div>
+                <div class="project-overlay">
+                  <div class="overlay-content">
+                    <a href="#" class="overlay-btn" aria-label="Scopri il progetto ShopEngine">
+                      Scopri il progetto →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta">
+                <span class="project-number">05</span>
+                <span class="project-year">2023</span>
+              </div>
+              <h3 class="project-title">ShopEngine — E-Commerce Platform</h3>
+              <p class="project-description">
+                Piattaforma e-commerce headless ad alte prestazioni. Checkout
+                ottimizzato, gestione inventory in tempo reale, integrazione con
+                gateway di pagamento e CDN globale. Score Lighthouse 98/100.
+              </p>
+              <div class="project-tags" aria-label="Tecnologie usate">
+                <span class="tag">Next.js</span>
+                <span class="tag">Stripe</span>
+                <span class="tag">Prisma</span>
+                <span class="tag">Vercel</span>
+              </div>
+              <div class="project-actions">
+                <a href="#"
+                   class="btn btn-primary btn-sm"
+                   rel="noopener noreferrer"
+                   aria-label="Scopri il progetto ShopEngine in dettaglio">
+                  Scopri il Progetto <span aria-hidden="true">→</span>
+                </a>
+                <a href="#"
+                   class="btn btn-demo btn-sm"
+                   rel="noopener noreferrer"
+                   data-coming-soon="true"
+                   aria-label="Demo di ShopEngine prossimamente disponibile">
+                  <span class="demo-dot" aria-hidden="true"></span>
+                  Demo Live <span class="coming-soon-badge">Soon</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROGETTO 6 -->
+          <article class="project-card glass-card reveal-up" data-category="web ai" style="--delay: 0.5s">
+            <div class="project-media">
+              <div class="project-img-wrapper">
+                <div class="project-placeholder" aria-hidden="true">
+                  <div class="placeholder-icon">💬</div>
+                  <div class="placeholder-label">Chat AI</div>
+                </div>
+                <div class="project-overlay">
+                  <div class="overlay-content">
+                    <a href="#" class="overlay-btn" aria-label="Scopri il progetto ChatBot Pro">
+                      Scopri il progetto →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta">
+                <span class="project-number">06</span>
+                <span class="project-year">2024</span>
+              </div>
+              <h3 class="project-title">ChatBot Pro — AI Customer Support</h3>
+              <p class="project-description">
+                Chatbot AI per customer support enterprise con NLP avanzato,
+                escalation automatica agli agenti umani, analytics conversazionale
+                e integrazione nativa con CRM aziendali. -60% ticket di supporto.
+              </p>
+              <div class="project-tags" aria-label="Tecnologie usate">
+                <span class="tag">OpenAI API</span>
+                <span class="tag">LangChain</span>
+                <span class="tag">Vue.js</span>
+                <span class="tag">WebSocket</span>
+              </div>
+              <div class="project-actions">
+                <a href="#"
+                   class="btn btn-primary btn-sm"
+                   rel="noopener noreferrer"
+                   aria-label="Scopri il progetto ChatBot Pro in dettaglio">
+                  Scopri il Progetto <span aria-hidden="true">→</span>
+                </a>
+                <a href="#"
+                   class="btn btn-demo btn-sm"
+                   rel="noopener noreferrer"
+                   data-coming-soon="true"
+                   aria-label="Demo di ChatBot Pro prossimamente disponibile">
+                  <span class="demo-dot" aria-hidden="true"></span>
+                  Demo Live <span class="coming-soon-badge">Soon</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div><!-- /portfolio-grid -->
+
+        <!-- CTA: vedi tutti su GitHub -->
+        <div class="portfolio-cta reveal-up">
+          <p>Vuoi vedere tutti i miei repository?</p>
+          <a href="https://github.com/tuousername"
+             class="btn btn-ghost"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Visita il mio profilo GitHub (apre in una nuova scheda)">
+            Vai al mio GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CONTACT SECTION ========== -->
+    <section class="contact section" id="contact" aria-label="Contatti">
+      <div class="container">
+        <div class="section-header reveal-up">
+          <span class="section-tag">// Contatti</span>
+          <h2 class="section-title">Lavoriamo <span class="gradient-text">insieme</span></h2>
+          <p class="section-subtitle">Hai un progetto in mente? Parliamone — rispondo entro 24h.</p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Info contatto -->
+          <div class="contact-info reveal-left">
+            <div class="contact-channels">
+              <a href="mailto:tua@email.com"
+                 class="contact-channel glass-card"
+                 aria-label="Scrivimi via email">
+                <span class="channel-icon" aria-hidden="true">✉️</span>
+                <div class="channel-content">
+                  <span class="channel-label">Email</span>
+                  <span class="channel-value">tua@email.com</span>
+                </div>
+                <span class="channel-arrow" aria-hidden="true">→</span>
+              </a>
+
+              <a href="https://linkedin.com/in/tuoprofilo"
+                 class="contact-channel glass-card"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="Connettiti su LinkedIn (apre in una nuova scheda)">
+                <span class="channel-icon" aria-hidden="true">💼</span>
+                <div class="channel-content">
+                  <span class="channel-label">LinkedIn</span>
+                  <span class="channel-value">linkedin.com/in/tuoprofilo</span>
+                </div>
+                <span class="channel-arrow" aria-hidden="true">→</span>
+              </a>
+
+              <a href="https://github.com/tuousername"
+                 class="contact-channel glass-card"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="Seguimi su GitHub (apre in una nuova scheda)">
+                <span class="channel-icon" aria-hidden="true">👨‍💻</span>
+                <div class="channel-content">
+                  <span class="channel-label">GitHub</span>
+                  <span class="channel-value">github.com/tuousername</span>
+                </div>
+                <span class="channel-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+
+            <div class="contact-availability glass-card">
+              <div class="avail-header">
+                <span class="avail-dot"></span>
+                <strong>Disponibile per nuovi progetti</strong>
+              </div>
+              <p>Freelance, contratti a tempo determinato e collaborazioni remote.</p>
+            </div>
+          </div>
+
+          <!-- Form contatti -->
+          <div class="contact-form-wrapper reveal-right">
+            <!--
+              SICUREZZA FORM:
+              - Il form invia a Formspree (servizio sicuro di terze parti)
+              - Nessun dato sensibile nel codice lato client
+              - Validazione + sanitizzazione lato JS prima dell'invio
+              - Token CSRF gestito da Formspree
+              - Sostituire YOUR_FORMSPREE_ID con il proprio endpoint da formspree.io
+            -->
+            <form
+              id="contactForm"
+              class="contact-form glass-card"
+              action="https://formspree.io/f/YOUR_FORMSPREE_ID"
+              method="POST"
+              novalidate
+              aria-label="Modulo di contatto"
+            >
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contactName" class="form-label">Nome <span aria-label="campo obbligatorio">*</span></label>
+                  <input
+                    type="text"
+                    id="contactName"
+                    name="name"
+                    class="form-input"
+                    placeholder="Mario Rossi"
+                    required
+                    minlength="2"
+                    maxlength="60"
+                    autocomplete="name"
+                    aria-describedby="nameError"
+                  />
+                  <span class="form-error" id="nameError" role="alert" aria-live="polite"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="contactEmail" class="form-label">Email <span aria-label="campo obbligatorio">*</span></label>
+                  <input
+                    type="email"
+                    id="contactEmail"
+                    name="email"
+                    class="form-input"
+                    placeholder="mario@esempio.com"
+                    required
+                    maxlength="254"
+                    autocomplete="email"
+                    aria-describedby="emailError"
+                  />
+                  <span class="form-error" id="emailError" role="alert" aria-live="polite"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contactSubject" class="form-label">Oggetto</label>
+                <input
+                  type="text"
+                  id="contactSubject"
+                  name="subject"
+                  class="form-input"
+                  placeholder="Proposta di collaborazione"
+                  maxlength="120"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="contactMessage" class="form-label">Messaggio <span aria-label="campo obbligatorio">*</span></label>
+                <textarea
+                  id="contactMessage"
+                  name="message"
+                  class="form-input form-textarea"
+                  placeholder="Raccontami del tuo progetto..."
+                  required
+                  minlength="20"
+                  maxlength="2000"
+                  rows="5"
+                  aria-describedby="messageError"
+                ></textarea>
+                <div class="textarea-footer">
+                  <span class="form-error" id="messageError" role="alert" aria-live="polite"></span>
+                  <span class="char-count" id="charCount" aria-live="polite">0 / 2000</span>
+                </div>
+              </div>
+
+              <!-- Honeypot anti-spam (nascosto visualmente e per screen reader) -->
+              <div class="form-group visually-hidden" aria-hidden="true">
+                <label for="hp_website">Website (non compilare)</label>
+                <input type="text" id="hp_website" name="_gotcha" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">
+                <span class="btn-text">Invia messaggio</span>
+                <span class="btn-icon" aria-hidden="true">→</span>
+                <span class="btn-loading" aria-hidden="true">
+                  <span class="spinner"></span>
+                </span>
+              </button>
+
+              <!-- Feedback invio -->
+              <div class="form-feedback" id="formFeedback" role="alert" aria-live="assertive"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <a href="#hero" class="nav-logo" aria-label="Torna all'inizio">
+            <span class="nav-logo-bracket">{</span>
+            <span class="nav-logo-initials">YN</span>
+            <span class="nav-logo-bracket">}</span>
+          </a>
+          <p>Costruito con passione, attenzione ai dettagli e <span aria-label="caffè">☕</span></p>
+        </div>
+
+        <nav class="footer-links" aria-label="Link footer">
+          <a href="#about">About</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#contact">Contatti</a>
+          <a href="assets/cv-tuonome.pdf" download>CV</a>
+        </nav>
+
+        <div class="footer-social">
+          <a href="https://github.com/tuousername"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="GitHub (apre in una nuova scheda)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+              <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+          <a href="https://linkedin.com/in/tuoprofilo"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="LinkedIn (apre in una nuova scheda)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="currentYear"></span> [Il Tuo Nome] — Tutti i diritti riservati.</p>
+        <p class="footer-made">Made with <span aria-label="amore">❤️</span> in Italia</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast notification per feedback UI -->
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
