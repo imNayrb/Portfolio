@@ -592,11 +592,24 @@ function initSmoothScroll() {
 }
 
 /* ========================
-   ANNO CORRENTE NEL FOOTER
+   ANNO CORRENTE NEL FOOTER + ETÀ DINAMICA
    ======================== */
 function initCurrentYear() {
   const el = document.getElementById('currentYear');
   if (el) el.textContent = new Date().getFullYear();
+}
+
+function initDynamicAge() {
+  const el = document.getElementById('dynamicAge');
+  if (!el) return;
+  const birth = new Date(2003, 10, 24); // 24 novembre 2003 (mese 0-based)
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  const hasBirthdayPassed =
+    today.getMonth() > birth.getMonth() ||
+    (today.getMonth() === birth.getMonth() && today.getDate() >= birth.getDate());
+  if (!hasBirthdayPassed) age--;
+  el.textContent = `${age} anni`;
 }
 
 /* ========================
@@ -646,6 +659,7 @@ function init() {
   initCurrentYear();
   initDemoLinks();
   initLazyLoad();
+  initDynamicAge();
 }
 
 /* Avvia quando il DOM è pronto */
