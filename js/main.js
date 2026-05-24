@@ -20,8 +20,12 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
 }
 
-/* ── Motion shorthand ───────────────────────────────────────── */
-const { animate, inView, scroll, stagger } = Motion;
+/* ── Motion shorthand (with graceful fallback) ──────────────── */
+const _M = typeof Motion !== 'undefined' ? Motion : {};
+const animate = _M.animate || (() => ({ then: (f) => { f && f(); return { cancel: () => {} }; } }));
+const inView  = _M.inView  || ((sel, cb) => { try { const el = typeof sel === 'string' ? document.querySelector(sel) : sel; if (el) cb(el); } catch(e) {} });
+const scroll  = _M.scroll  || (() => {});
+const stagger = _M.stagger || (() => 0);
 
 /* ── Loader ─────────────────────────────────────────────────── */
 function initLoader() {
