@@ -3,115 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfolio di Bryan Uppolo — Full Stack Developer, UX/UI Designer e Process Architect. Costruisco prodotti digitali completi: dal codice all'esperienza, dall'idea al processo." />
-  <meta name="author" content="Bryan Uppolo" />
-  <meta name="robots" content="index, follow" />
-
-  <!-- Open Graph / Social Preview -->
+  <meta name="description" content="Bryan Uppolo — Full Stack Developer, UX/UI Designer e Process Architect. Portfolio professionale." />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:title" content="Bryan Uppolo — Portfolio" />
+  <meta property="og:description" content="Full Stack Developer · UX/UI Designer · Process Architect" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Bryan Uppolo — Full Stack Dev · UX/UI Designer · Process Architect" />
-  <meta property="og:description" content="Costruisco prodotti digitali dall'inizio alla fine: codice solido, interfacce che incantano, processi che scalano." />
-  <meta property="og:image" content="assets/images/og-preview.png" />
-  <meta property="og:url" content="https://tuousername.github.io/portfolio" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Bryan Uppolo — Full Stack Dev · UX/UI Designer · Process Architect" />
-  <meta name="twitter:description" content="Codice, design e architettura dei processi: tre discipline, un unico autore." />
-
-  <!--
-    SECURITY HEADERS NOTE:
-    Per GitHub Pages (statico), gli header HTTP non sono configurabili lato server.
-    Per un controllo completo degli header di sicurezza (CSP, X-Frame-Options, ecc.),
-    considera di deployare su Netlify o Cloudflare Pages usando i file _headers o netlify.toml.
-    Vedi: /docs/security-headers.md per la configurazione raccomandata.
-
-    Header raccomandati da aggiungere nel file _headers (Netlify) o netlify.toml:
-      Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://formspree.io;
-      X-Frame-Options: DENY
-      X-Content-Type-Options: nosniff
-      Referrer-Policy: strict-origin-when-cross-origin
-      Permissions-Policy: camera=(), microphone=(), geolocation=()
-  -->
-  <!-- Clickjacking mitigation via meta (limitata, ma utile per Pages) -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-  <title>Bryan Uppolo — Full Stack Dev · UX/UI Designer · Process Architect</title>
-
-  <!-- Preconnect per Google Fonts (performance) -->
+  <meta property="og:url" content="https://imnayrb.github.io/Portfolio" />
+  <title>Bryan Uppolo — Portfolio</title>
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
 </head>
 <body>
 
-  <!-- ========== CURSOR PERSONALIZZATO ========== -->
-  <div class="cursor" id="cursor" aria-hidden="true"></div>
-  <div class="cursor-follower" id="cursorFollower" aria-hidden="true"></div>
-
-  <!-- ========== LOADING SCREEN ========== -->
-  <div class="loading-screen" id="loadingScreen" aria-hidden="true">
-    <div class="loading-content">
-      <div class="loading-logo">
-        <span class="loading-bracket">{</span>
-        <span class="loading-initials">YN</span>
-        <span class="loading-bracket">}</span>
-      </div>
-      <div class="loading-bar">
-        <div class="loading-progress" id="loadingProgress"></div>
-      </div>
+  <!-- Loading Screen -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="loader-logo">BU</div>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+      <div class="loader-text">Caricamento...</div>
     </div>
   </div>
 
-  <!-- ========== NAVIGATION ========== -->
-  <header class="nav-header" id="navHeader" role="banner">
-    <nav class="nav-container" aria-label="Navigazione principale">
-      <a href="#hero" class="nav-logo" aria-label="Torna all'inizio">
-        <span class="nav-logo-bracket">{</span>
-        <span class="nav-logo-initials">YN</span>
-        <span class="nav-logo-bracket">}</span>
-      </a>
+  <!-- Custom Cursor -->
+  <div id="cursor" aria-hidden="true"></div>
+  <div id="cursor-trail" aria-hidden="true"></div>
 
+  <!-- Navigation -->
+  <header id="site-header" role="banner">
+    <nav class="nav-container" role="navigation" aria-label="Navigazione principale">
+      <a href="#hero" class="nav-logo" aria-label="Bryan Uppolo — home">
+        <span class="logo-text">BU</span>
+      </a>
       <ul class="nav-links" role="list">
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#skills" class="nav-link">Skills</a></li>
-        <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-        <li><a href="#contact" class="nav-link">Contatti</a></li>
+        <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+        <li><a href="#skills" class="nav-link" data-section="skills">Skills</a></li>
+        <li><a href="#projects" class="nav-link" data-section="projects">Progetti</a></li>
+        <li><a href="#contact" class="nav-link" data-section="contact">Contatti</a></li>
       </ul>
-
-      <a href="#contact" class="btn btn-primary btn-sm nav-cta">
-        Parliamo <span class="btn-arrow">→</span>
-      </a>
-
-      <button class="nav-toggle" id="navToggle" aria-label="Apri menu" aria-expanded="false" aria-controls="mobileMenu">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
+      <a href="#contact" class="nav-cta">Parliamo</a>
+      <button class="nav-toggle" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
       </button>
     </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu mobile" aria-hidden="true">
-      <ul class="mobile-links" role="list">
+    <div class="nav-progress" aria-hidden="true"><div id="nav-progress-bar"></div></div>
+    <div id="mobile-menu" class="mobile-menu" aria-hidden="true" role="dialog" aria-modal="true">
+      <ul role="list">
         <li><a href="#about" class="mobile-link">About</a></li>
         <li><a href="#skills" class="mobile-link">Skills</a></li>
-        <li><a href="#portfolio" class="mobile-link">Portfolio</a></li>
+        <li><a href="#projects" class="mobile-link">Progetti</a></li>
         <li><a href="#contact" class="mobile-link">Contatti</a></li>
       </ul>
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
 
-    <!-- ========== HERO SECTION ========== -->
-    <section class="hero" id="hero" aria-label="Presentazione">
-      <!-- Canvas per particelle animate -->
-      <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+    <!-- ===================== HERO ===================== -->
+    <section id="hero" class="hero-section" aria-label="Presentazione">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
 
-      <!-- Sfere di sfondo animate -->
       <div class="hero-orbs" aria-hidden="true">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
@@ -124,852 +77,541 @@
           <span>Disponibile per nuovi progetti</span>
         </div>
 
-        <h1 class="hero-title reveal-up" style="--delay: 0.1s">
-          <span class="title-line">Ciao, sono</span>
-          <span class="title-name gradient-text">Bryan Uppolo</span>
-          <span class="title-role">
-            <span class="role-typed" id="typedText" aria-live="polite"></span>
-            <span class="role-cursor" aria-hidden="true">|</span>
-          </span>
+        <h1 class="hero-title reveal-up" style="--delay:0.1s">
+          <span class="title-line title-greeting">Ciao, sono</span>
+          <span class="title-name">Bryan<br><span class="name-accent">Uppolo</span></span>
         </h1>
 
-        <p class="hero-description reveal-up" style="--delay: 0.2s">
-          Tre discipline, un unico approccio: scrivo codice solido da Full Stack Developer,
-          progetto interfacce che le persone amano da UX/UI Designer e orchestro
-          flussi operativi che scalano da Process Architect.
-          Dal primo wireframe al deploy in produzione, sono l'unico interlocutore di cui hai bisogno.
+        <div class="hero-roles reveal-up" style="--delay:0.2s" aria-live="polite">
+          <span class="role-prefix">— </span>
+          <span id="typed-role" class="role-typed"></span>
+          <span class="role-cursor" aria-hidden="true">|</span>
+        </div>
+
+        <p class="hero-bio reveal-up" style="--delay:0.3s">
+          Costruisco prodotti digitali che uniscono codice solido,<br class="br-desktop">
+          design elegante e processi efficienti.
         </p>
 
-        <div class="hero-actions reveal-up" style="--delay: 0.3s">
-          <a href="#portfolio" class="btn btn-primary btn-lg">
-            Scopri i miei progetti
-            <span class="btn-arrow">→</span>
+        <div class="hero-actions reveal-up" style="--delay:0.4s">
+          <a href="#projects" class="btn btn-primary">
+            <span>Vedi i progetti</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
-          <a href="#contact" class="btn btn-ghost btn-lg">
-            Contattami
+          <a href="assets/cv-bryan-uppolo.pdf" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+            <span>Scarica CV</span>
           </a>
         </div>
 
-        <div class="hero-stats reveal-up" style="--delay: 0.4s">
+        <div class="hero-stats reveal-up" style="--delay:0.5s" aria-label="Statistiche">
           <div class="stat-item">
-            <span class="stat-number" data-target="20">0</span><span class="stat-plus">+</span>
-            <span class="stat-label">Progetti completati</span>
+            <span class="stat-number" data-target="3">0</span>
+            <span class="stat-label">Discipline<br>integrate</span>
           </div>
           <div class="stat-divider" aria-hidden="true"></div>
           <div class="stat-item">
-            <span class="stat-number" data-target="5">0</span><span class="stat-plus">+</span>
-            <span class="stat-label">Anni di esperienza</span>
+            <span class="stat-number" data-target="20" data-suffix="+">0</span>
+            <span class="stat-label">Progetti<br>completati</span>
           </div>
           <div class="stat-divider" aria-hidden="true"></div>
           <div class="stat-item">
-            <span class="stat-number" data-target="12">0</span><span class="stat-plus">+</span>
-            <span class="stat-label">Clienti soddisfatti</span>
+            <span class="stat-number" data-target="100" data-suffix="%">0</span>
+            <span class="stat-label">Clienti<br>soddisfatti</span>
           </div>
         </div>
       </div>
 
-      <div class="hero-scroll-indicator" aria-hidden="true">
-        <div class="scroll-line"></div>
+      <a href="#about" class="scroll-indicator" aria-label="Scorri verso About">
+        <div class="scroll-mouse">
+          <div class="scroll-wheel"></div>
+        </div>
         <span>Scorri</span>
-      </div>
+      </a>
     </section>
 
-    <!-- ========== ABOUT SECTION ========== -->
-    <section class="about section" id="about" aria-label="Chi sono">
+    <!-- ===================== ABOUT ===================== -->
+    <section id="about" class="section about-section" aria-labelledby="about-title">
       <div class="container">
-        <div class="section-header reveal-up">
-          <span class="section-tag">// Chi sono</span>
-          <h2 class="section-title">Tre discipline, <span class="gradient-text">un solo autore</span></h2>
+        <div class="section-header">
+          <span class="section-tag reveal-up">Chi sono</span>
+          <h2 id="about-title" class="section-title reveal-up" style="--delay:0.1s">Tre discipline,<br>una visione.</h2>
         </div>
 
         <div class="about-grid">
-          <div class="about-text reveal-left">
-            <p class="about-lead">
-              Sono Full Stack Developer, UX/UI Designer e Process Architect.
-              Non perché voglia fare tutto — ma perché queste tre discipline
-              si parlano, e io sono il traduttore che le fa lavorare insieme.
+          <div class="about-intro reveal-up" style="--delay:0.1s">
+            <p class="about-text">
+              Sono <strong>Bryan Uppolo</strong>, nato il 24 novembre 2003
+              (<span id="dynamic-age">22</span> anni). Combino sviluppo full stack,
+              design UX/UI e architettura dei processi per creare prodotti digitali
+              che funzionano davvero.
             </p>
-            <p>
-              Lato codice costruisco applicazioni robuste e scalabili, end-to-end.
-              Lato design trasformo requisiti in interfacce che riducono l'attrito e
-              aumentano la conversione. Lato processi mappo, ottimizzo e automatizzo
-              i flussi operativi che tengono in piedi un prodotto nel tempo.
+            <p class="about-text">
+              Non mi fermo al "funziona": mi chiedo sempre se è il modo migliore,
+              se l'utente ci capisce qualcosa, e se il processo dietro è scalabile.
             </p>
-            <p>
-              Il risultato: prodotti coerenti, dove ogni strato — tecnico, visivo e
-              organizzativo — è pensato dallo stesso cervello e parla la stessa lingua.
-            </p>
-
-            <div class="about-highlights">
-              <div class="highlight-item">
-                <span class="highlight-icon" aria-hidden="true">⚙️</span>
-                <div>
-                  <strong>Full Stack Development</strong>
-                  <span>Frontend + Backend + DB: nessuna dipendenza esterna per il core</span>
-                </div>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-icon" aria-hidden="true">🎨</span>
-                <div>
-                  <strong>UX/UI Design</strong>
-                  <span>Dalla ricerca utente al design system pronto per il dev hand-off</span>
-                </div>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-icon" aria-hidden="true">🗺️</span>
-                <div>
-                  <strong>Process Architecture</strong>
-                  <span>Mapping, ottimizzazione e automazione dei flussi di business</span>
-                </div>
-              </div>
+            <div class="about-links">
+              <a href="https://github.com/imNayrb" class="about-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub di Bryan Uppolo">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                GitHub
+              </a>
+              <a href="https://linkedin.com/in/tuoprofilo" class="about-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn di Bryan Uppolo">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn
+              </a>
+              <a href="mailto:bryan.uppolo@gmail.com" class="about-link" aria-label="Email Bryan Uppolo">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                Email
+              </a>
             </div>
-
-            <a href="assets/cv-tuonome.pdf" class="btn btn-secondary" download aria-label="Scarica il mio CV in PDF">
-              Scarica CV <span aria-hidden="true">↓</span>
-            </a>
           </div>
 
-          <div class="about-visual reveal-right">
-            <div class="about-card-wrapper">
-              <!-- Card principale -->
-              <div class="about-card glass-card">
-                <div class="about-avatar">
-                  <img
-                    src="assets/images/avatar-placeholder.jpg"
-                    alt="Foto di Bryan Uppolo — Full Stack Developer, UX/UI Designer e Process Architect"
-                    width="120"
-                    height="120"
-                    loading="lazy"
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                  />
-                  <!-- Fallback avatar SVG -->
-                  <div class="avatar-fallback" style="display:none" aria-hidden="true">YN</div>
-                </div>
-                <div class="about-card-info">
-                  <h3>Bryan Uppolo</h3>
-                  <span class="card-role">Full Stack · UX/UI · Process Architect</span>
-                  <div class="card-location">
-                    <span aria-hidden="true">📍</span> Italia &nbsp;·&nbsp;
-                    <span id="dynamicAge"></span>
-                  </div>
-                </div>
+          <div class="about-cards">
+            <div class="about-card glass-card reveal-up" style="--delay:0s">
+              <div class="card-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
               </div>
-
-              <!-- Card floating: approccio -->
-              <div class="floating-card glass-card fc-top reveal-up" style="--delay: 0.3s" aria-hidden="true">
-                <span class="fc-icon">🔗</span>
-                <div>
-                  <div class="fc-label">Approccio</div>
-                  <div class="fc-value">End-to-end ownership</div>
-                </div>
+              <h3>Full Stack Dev</h3>
+              <p>Dal database all'interfaccia: architetture scalabili, API robuste, frontend reattivi che performano.</p>
+            </div>
+            <div class="about-card glass-card reveal-up" style="--delay:0.15s">
+              <div class="card-icon card-icon--purple">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
               </div>
-
-              <!-- Card floating: disponibilità -->
-              <div class="floating-card glass-card fc-bottom reveal-up" style="--delay: 0.5s" aria-hidden="true">
-                <span class="status-dot"></span>
-                <div>
-                  <div class="fc-label">Status</div>
-                  <div class="fc-value">Disponibile Freelance</div>
-                </div>
+              <h3>UX/UI Designer</h3>
+              <p>Design centrato sull'utente: ricerca, wireframe, prototipi ad alta fedeltà, design system scalabili.</p>
+            </div>
+            <div class="about-card glass-card reveal-up" style="--delay:0.3s">
+              <div class="card-icon card-icon--cyan">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h7v7H3z"/><path d="M14 3h7v7h-7z"/><path d="M14 14h7v7h-7z"/><path d="M3 14h7v7H3z"/></svg>
               </div>
+              <h3>Process Architect</h3>
+              <p>Mappatura e ottimizzazione dei flussi: automazione, BPMN, riduzione dei colli di bottiglia.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== SKILLS SECTION ========== -->
-    <section class="skills section" id="skills" aria-label="Competenze tecniche">
+    <!-- ===================== SKILLS ===================== -->
+    <section id="skills" class="section skills-section" aria-labelledby="skills-title">
       <div class="container">
-        <div class="section-header reveal-up">
-          <span class="section-tag">// Le mie skills</span>
-          <h2 class="section-title">Tre discipline, <span class="gradient-text">un ecosistema</span></h2>
-          <p class="section-subtitle">Ogni competenza è connessa alle altre — è questa sinergia che genera prodotti coerenti</p>
+        <div class="section-header">
+          <span class="section-tag reveal-up">Competenze</span>
+          <h2 id="skills-title" class="section-title reveal-up" style="--delay:0.1s">Stack &amp; Tools</h2>
         </div>
 
-        <div class="skills-categories">
-          <!-- Pilastro 1: Full Stack Development -->
-          <div class="skill-category reveal-up" style="--delay: 0s">
+        <div class="skills-grid">
+          <div class="skill-category glass-card reveal-up" style="--delay:0s">
             <div class="skill-cat-header">
-              <span class="skill-cat-icon" aria-hidden="true">⚙️</span>
-              <h3>Full Stack Development</h3>
+              <div class="skill-cat-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </div>
+              <h3>Frontend</h3>
             </div>
-            <div class="skill-pills">
-              <span class="skill-pill">React / Next.js</span>
-              <span class="skill-pill">TypeScript</span>
-              <span class="skill-pill">Vue.js</span>
-              <span class="skill-pill">Node.js</span>
-              <span class="skill-pill">Python / FastAPI</span>
-              <span class="skill-pill">PostgreSQL</span>
-              <span class="skill-pill">MongoDB</span>
-              <span class="skill-pill">Redis</span>
-              <span class="skill-pill">GraphQL</span>
-              <span class="skill-pill">REST API</span>
+            <div class="skill-list">
+              <div class="skill-item"><span class="skill-name">HTML / CSS</span><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div><span class="skill-pct">95%</span></div>
+              <div class="skill-item"><span class="skill-name">JavaScript / TS</span><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div><span class="skill-pct">88%</span></div>
+              <div class="skill-item"><span class="skill-name">React / Next.js</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div><span class="skill-pct">85%</span></div>
+              <div class="skill-item"><span class="skill-name">Vue.js</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div><span class="skill-pct">75%</span></div>
             </div>
           </div>
 
-          <!-- Pilastro 2: UX/UI Design -->
-          <div class="skill-category reveal-up" style="--delay: 0.1s">
+          <div class="skill-category glass-card reveal-up" style="--delay:0.1s">
             <div class="skill-cat-header">
-              <span class="skill-cat-icon" aria-hidden="true">🎨</span>
-              <h3>UX/UI Design</h3>
+              <div class="skill-cat-icon skill-cat-icon--purple">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+              </div>
+              <h3>Backend</h3>
             </div>
-            <div class="skill-pills">
-              <span class="skill-pill">Figma</span>
-              <span class="skill-pill">Design System</span>
-              <span class="skill-pill">Wireframing</span>
-              <span class="skill-pill">Prototipazione</span>
-              <span class="skill-pill">User Research</span>
-              <span class="skill-pill">Usability Testing</span>
-              <span class="skill-pill">Information Architecture</span>
-              <span class="skill-pill">CSS / Sass / Tailwind</span>
-              <span class="skill-pill">WCAG 2.1 AA</span>
-              <span class="skill-pill">Micro-interazioni</span>
+            <div class="skill-list">
+              <div class="skill-item"><span class="skill-name">Node.js / Express</span><div class="skill-bar"><div class="skill-fill skill-fill--purple" data-width="85"></div></div><span class="skill-pct">85%</span></div>
+              <div class="skill-item"><span class="skill-name">Python / FastAPI</span><div class="skill-bar"><div class="skill-fill skill-fill--purple" data-width="78"></div></div><span class="skill-pct">78%</span></div>
+              <div class="skill-item"><span class="skill-name">PostgreSQL / MySQL</span><div class="skill-bar"><div class="skill-fill skill-fill--purple" data-width="82"></div></div><span class="skill-pct">82%</span></div>
+              <div class="skill-item"><span class="skill-name">Docker / CI/CD</span><div class="skill-bar"><div class="skill-fill skill-fill--purple" data-width="70"></div></div><span class="skill-pct">70%</span></div>
             </div>
           </div>
 
-          <!-- Pilastro 3: Process Architecture -->
-          <div class="skill-category reveal-up" style="--delay: 0.2s">
+          <div class="skill-category glass-card reveal-up" style="--delay:0.2s">
             <div class="skill-cat-header">
-              <span class="skill-cat-icon" aria-hidden="true">🗺️</span>
-              <h3>Process Architecture</h3>
+              <div class="skill-cat-icon skill-cat-icon--cyan">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </div>
+              <h3>Design</h3>
             </div>
-            <div class="skill-pills">
-              <span class="skill-pill">BPMN 2.0</span>
-              <span class="skill-pill">Process Mapping</span>
-              <span class="skill-pill">Workflow Automation</span>
-              <span class="skill-pill">Agile / Scrum</span>
-              <span class="skill-pill">Lean / Kaizen</span>
-              <span class="skill-pill">Make (Integromat)</span>
-              <span class="skill-pill">n8n</span>
-              <span class="skill-pill">Zapier</span>
-              <span class="skill-pill">KPI Design</span>
-              <span class="skill-pill">Change Management</span>
+            <div class="skill-list">
+              <div class="skill-item"><span class="skill-name">Figma</span><div class="skill-bar"><div class="skill-fill skill-fill--cyan" data-width="92"></div></div><span class="skill-pct">92%</span></div>
+              <div class="skill-item"><span class="skill-name">Design System</span><div class="skill-bar"><div class="skill-fill skill-fill--cyan" data-width="88"></div></div><span class="skill-pct">88%</span></div>
+              <div class="skill-item"><span class="skill-name">Prototipazione</span><div class="skill-bar"><div class="skill-fill skill-fill--cyan" data-width="85"></div></div><span class="skill-pct">85%</span></div>
+              <div class="skill-item"><span class="skill-name">User Research</span><div class="skill-bar"><div class="skill-fill skill-fill--cyan" data-width="80"></div></div><span class="skill-pct">80%</span></div>
             </div>
           </div>
 
-          <!-- Infrastruttura & DevOps -->
-          <div class="skill-category reveal-up" style="--delay: 0.3s">
+          <div class="skill-category glass-card reveal-up" style="--delay:0.3s">
             <div class="skill-cat-header">
-              <span class="skill-cat-icon" aria-hidden="true">🚀</span>
-              <h3>Infrastruttura & DevOps</h3>
+              <div class="skill-cat-icon skill-cat-icon--green">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h7v7H3z"/><path d="M14 3h7v7h-7z"/><path d="M14 14h7v7h-7z"/><path d="M3 14h7v7H3z"/></svg>
+              </div>
+              <h3>Process</h3>
             </div>
-            <div class="skill-pills">
-              <span class="skill-pill">Docker</span>
-              <span class="skill-pill">Git / GitHub</span>
-              <span class="skill-pill">CI/CD</span>
-              <span class="skill-pill">AWS</span>
-              <span class="skill-pill">Linux</span>
-              <span class="skill-pill">OWASP</span>
-              <span class="skill-pill">JWT / OAuth 2.0</span>
-              <span class="skill-pill">CSP / HTTPS</span>
+            <div class="skill-list">
+              <div class="skill-item"><span class="skill-name">BPMN 2.0</span><div class="skill-bar"><div class="skill-fill skill-fill--green" data-width="88"></div></div><span class="skill-pct">88%</span></div>
+              <div class="skill-item"><span class="skill-name">Automazione</span><div class="skill-bar"><div class="skill-fill skill-fill--green" data-width="85"></div></div><span class="skill-pct">85%</span></div>
+              <div class="skill-item"><span class="skill-name">Agile / Scrum</span><div class="skill-bar"><div class="skill-fill skill-fill--green" data-width="82"></div></div><span class="skill-pct">82%</span></div>
+              <div class="skill-item"><span class="skill-name">Notion / ClickUp</span><div class="skill-bar"><div class="skill-fill skill-fill--green" data-width="90"></div></div><span class="skill-pct">90%</span></div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== PORTFOLIO SECTION ========== -->
-    <section class="portfolio section" id="portfolio" aria-label="Portfolio progetti">
+    <!-- ===================== PROJECTS ===================== -->
+    <section id="projects" class="section projects-section" aria-labelledby="projects-title">
       <div class="container">
-        <div class="section-header reveal-up">
-          <span class="section-tag">// I miei progetti</span>
-          <h2 class="section-title">Lavori <span class="gradient-text">selezionati</span></h2>
-          <p class="section-subtitle">Codice, design e processi — ogni progetto racconta tutte e tre le discipline</p>
+        <div class="section-header">
+          <span class="section-tag reveal-up">Lavori</span>
+          <h2 id="projects-title" class="section-title reveal-up" style="--delay:0.1s">Progetti selezionati</h2>
         </div>
 
-        <!-- Filtri portfolio -->
-        <div class="portfolio-filters reveal-up" role="group" aria-label="Filtra progetti per categoria">
-          <button class="filter-btn active" data-filter="all" aria-pressed="true">Tutti</button>
-          <button class="filter-btn" data-filter="fullstack" aria-pressed="false">Full Stack</button>
-          <button class="filter-btn" data-filter="design" aria-pressed="false">UX/UI</button>
-          <button class="filter-btn" data-filter="process" aria-pressed="false">Process</button>
-          <button class="filter-btn" data-filter="mobile" aria-pressed="false">Mobile</button>
+        <div class="project-filters reveal-up" style="--delay:0.2s" role="group" aria-label="Filtra progetti">
+          <button class="filter-btn active" data-filter="all">Tutti</button>
+          <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+          <button class="filter-btn" data-filter="uxui">UX/UI</button>
+          <button class="filter-btn" data-filter="process">Process</button>
         </div>
 
-        <div class="portfolio-grid" id="portfolioGrid">
+        <div class="projects-grid" id="projects-grid">
 
-          <!-- PROGETTO 1 — Featured: Full Stack + UX/UI + Process -->
-          <article class="project-card featured glass-card reveal-up" data-category="fullstack design process" style="--delay: 0s">
-            <div class="project-media">
-              <div class="project-img-wrapper">
-                <!-- Sostituire con img reale: <img src="assets/images/project-1.jpg" alt="Screenshot FlowOps" width="800" height="500" loading="lazy" /> -->
-                <div class="project-placeholder" aria-hidden="true">
-                  <div class="placeholder-icon">🔗</div>
-                  <div class="placeholder-label">Screenshot Progetto</div>
-                </div>
-                <div class="project-overlay">
-                  <div class="overlay-content">
-                    <a href="#" class="overlay-btn" aria-label="Scopri il progetto FlowOps">
-                      Scopri il progetto →
-                    </a>
+          <article class="project-card reveal-up" data-category="fullstack" style="--delay:0s">
+            <div class="project-visual pv-blue">
+              <div class="project-mockup">
+                <div class="mock-bar"><span></span><span></span><span></span></div>
+                <div class="mock-content">
+                  <div class="mock-line" style="width:65%"></div>
+                  <div class="mock-line" style="width:40%"></div>
+                  <div class="mock-cards-row">
+                    <div class="mock-card-sm"></div>
+                    <div class="mock-card-sm"></div>
+                    <div class="mock-card-sm"></div>
                   </div>
                 </div>
               </div>
-              <span class="project-badge">Featured</span>
+              <div class="pv-glow"></div>
             </div>
-
-            <div class="project-content">
+            <div class="project-info">
               <div class="project-meta">
-                <span class="project-number">01</span>
+                <span class="project-tag tag--blue">Full Stack</span>
                 <span class="project-year">2024</span>
               </div>
-              <h3 class="project-title">FlowOps — Piattaforma di Process Management</h3>
-              <p class="project-description">
-                Piattaforma SaaS end-to-end per la gestione e automazione dei processi aziendali.
-                Ho progettato l'architettura dei flussi BPMN, disegnato l'intera UX (ricerca utente,
-                wireframe, design system) e sviluppato frontend e backend. Dashboard real-time,
-                motore di regole configurabile e integrazioni API con tool di terze parti.
-                Risultato: −45% di errori operativi nei team clienti.
-              </p>
-              <div class="project-tags" aria-label="Tecnologie e discipline">
-                <span class="tag">React</span>
-                <span class="tag">Node.js</span>
-                <span class="tag">PostgreSQL</span>
-                <span class="tag">BPMN 2.0</span>
-                <span class="tag">Figma</span>
-                <span class="tag">Docker</span>
-              </div>
+              <h3 class="project-title">FlowDesk</h3>
+              <p class="project-desc">Piattaforma SaaS di project management con real-time collaboration, automazioni Kanban e analytics avanzate.</p>
+              <div class="project-tech"><span>React</span><span>Node.js</span><span>PostgreSQL</span><span>WebSocket</span></div>
               <div class="project-actions">
-                <a href="#"
-                   class="btn btn-primary btn-sm"
-                   rel="noopener noreferrer"
-                   aria-label="Scopri il progetto FlowOps in dettaglio">
-                  Scopri il Progetto <span aria-hidden="true">→</span>
-                </a>
-                <a href="#"
-                   class="btn btn-demo btn-sm"
-                   rel="noopener noreferrer"
-                   aria-label="Demo live di FlowOps (prossimamente)"
-                   data-coming-soon="true">
-                  <span class="demo-dot" aria-hidden="true"></span>
-                  Demo Live <span class="coming-soon-badge" aria-label="Prossimamente">Soon</span>
+                <button class="btn-project btn-project--demo" data-coming-soon="true">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                  Demo Live <span class="badge-soon">Soon</span>
+                </button>
+                <a href="https://github.com/imNayrb" class="btn-project btn-project--code" target="_blank" rel="noopener noreferrer">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                  Codice
                 </a>
               </div>
             </div>
           </article>
 
-          <!-- PROGETTO 2: UX/UI Design -->
-          <article class="project-card glass-card reveal-up" data-category="design fullstack" style="--delay: 0.1s">
-            <div class="project-media">
-              <div class="project-img-wrapper">
-                <div class="project-placeholder" aria-hidden="true">
-                  <div class="placeholder-icon">🎨</div>
-                  <div class="placeholder-label">Design System</div>
-                </div>
-                <div class="project-overlay">
-                  <div class="overlay-content">
-                    <a href="#" class="overlay-btn" aria-label="Scopri il progetto NexUI">
-                      Scopri il progetto →
-                    </a>
-                  </div>
+          <article class="project-card reveal-up" data-category="uxui" style="--delay:0.1s">
+            <div class="project-visual pv-purple">
+              <div class="project-mockup">
+                <div class="mock-bar"><span></span><span></span><span></span></div>
+                <div class="mock-content">
+                  <div class="mock-big-num">€ 4,821</div>
+                  <div class="mock-line" style="width:80%"></div>
+                  <div class="mock-line" style="width:50%"></div>
                 </div>
               </div>
+              <div class="pv-glow"></div>
             </div>
-            <div class="project-content">
+            <div class="project-info">
               <div class="project-meta">
-                <span class="project-number">02</span>
+                <span class="project-tag tag--purple">UX/UI</span>
                 <span class="project-year">2024</span>
               </div>
-              <h3 class="project-title">NexUI — Design System per Fintech</h3>
-              <p class="project-description">
-                Design system completo partito da zero per una startup fintech.
-                User research con 30+ interviste, architettura dell'informazione,
-                90+ componenti React documentati in Storybook, token di design
-                sistematizzati e conformità WCAG 2.1 AA. −60% di inconsistenze
-                visive nel prodotto, hand-off dev ridotto del 70%.
-              </p>
-              <div class="project-tags" aria-label="Tecnologie e discipline">
-                <span class="tag">Figma</span>
-                <span class="tag">React</span>
-                <span class="tag">Storybook</span>
-                <span class="tag">User Research</span>
-                <span class="tag">WCAG 2.1</span>
-              </div>
+              <h3 class="project-title">NexaBank</h3>
+              <p class="project-desc">Redesign completo dell'app bancaria digitale: ricerca utenti, information architecture, prototipo interattivo e design system.</p>
+              <div class="project-tech"><span>Figma</span><span>Prototyping</span><span>User Research</span><span>Design System</span></div>
               <div class="project-actions">
-                <a href="#"
-                   class="btn btn-primary btn-sm"
-                   rel="noopener noreferrer"
-                   aria-label="Scopri il progetto NexUI in dettaglio">
-                  Scopri il Progetto <span aria-hidden="true">→</span>
-                </a>
-                <a href="#"
-                   class="btn btn-demo btn-sm"
-                   rel="noopener noreferrer"
-                   data-coming-soon="true"
-                   aria-label="Demo di NexUI prossimamente">
-                  <span class="demo-dot" aria-hidden="true"></span>
-                  Demo Live <span class="coming-soon-badge">Soon</span>
+                <button class="btn-project btn-project--demo" data-coming-soon="true">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                  Case Study <span class="badge-soon">Soon</span>
+                </button>
+                <a href="https://github.com/imNayrb" class="btn-project btn-project--code" target="_blank" rel="noopener noreferrer">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                  Figma
                 </a>
               </div>
             </div>
           </article>
 
-          <!-- PROGETTO 3: Process Architecture -->
-          <article class="project-card glass-card reveal-up" data-category="process" style="--delay: 0.2s">
-            <div class="project-media">
-              <div class="project-img-wrapper">
-                <div class="project-placeholder" aria-hidden="true">
-                  <div class="placeholder-icon">🗺️</div>
-                  <div class="placeholder-label">Process Map</div>
-                </div>
-                <div class="project-overlay">
-                  <div class="overlay-content">
-                    <a href="#" class="overlay-btn" aria-label="Scopri il progetto AutoFlow">
-                      Scopri il progetto →
-                    </a>
-                  </div>
+          <article class="project-card reveal-up" data-category="process" style="--delay:0.2s">
+            <div class="project-visual pv-green">
+              <div class="project-mockup">
+                <div class="mock-bar"><span></span><span></span><span></span></div>
+                <div class="mock-flow">
+                  <div class="mock-node"></div>
+                  <div class="mock-arrow">→</div>
+                  <div class="mock-node mock-node--accent"></div>
+                  <div class="mock-arrow">→</div>
+                  <div class="mock-node"></div>
                 </div>
               </div>
+              <div class="pv-glow"></div>
             </div>
-            <div class="project-content">
+            <div class="project-info">
               <div class="project-meta">
-                <span class="project-number">03</span>
-                <span class="project-year">2024</span>
-              </div>
-              <h3 class="project-title">AutoFlow — Automazione Operativa B2B</h3>
-              <p class="project-description">
-                Progetto di re-engineering dei processi per un'azienda manifatturiera.
-                Mappatura AS-IS con BPMN 2.0, identificazione dei colli di bottiglia,
-                progettazione TO-BE e implementazione delle automazioni con Make e n8n.
-                Integrazione CRM→ERP→logistica. Risparmio stimato: 800 ore/anno.
-              </p>
-              <div class="project-tags" aria-label="Tecnologie e discipline">
-                <span class="tag">BPMN 2.0</span>
-                <span class="tag">Make</span>
-                <span class="tag">n8n</span>
-                <span class="tag">Process Mapping</span>
-                <span class="tag">Lean</span>
-              </div>
-              <div class="project-actions">
-                <a href="#"
-                   class="btn btn-primary btn-sm"
-                   rel="noopener noreferrer"
-                   aria-label="Scopri il progetto AutoFlow in dettaglio">
-                  Scopri il Progetto <span aria-hidden="true">→</span>
-                </a>
-                <a href="#"
-                   class="btn btn-demo btn-sm"
-                   rel="noopener noreferrer"
-                   data-coming-soon="true"
-                   aria-label="Demo di AutoFlow prossimamente">
-                  <span class="demo-dot" aria-hidden="true"></span>
-                  Demo Live <span class="coming-soon-badge">Soon</span>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- PROGETTO 4: Mobile + UX/UI -->
-          <article class="project-card glass-card reveal-up" data-category="mobile design" style="--delay: 0.3s">
-            <div class="project-media">
-              <div class="project-img-wrapper">
-                <div class="project-placeholder" aria-hidden="true">
-                  <div class="placeholder-icon">📱</div>
-                  <div class="placeholder-label">Mobile App</div>
-                </div>
-                <div class="project-overlay">
-                  <div class="overlay-content">
-                    <a href="#" class="overlay-btn" aria-label="Scopri il progetto PulseApp">
-                      Scopri il progetto →
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="project-content">
-              <div class="project-meta">
-                <span class="project-number">04</span>
+                <span class="project-tag tag--green">Process</span>
                 <span class="project-year">2023</span>
               </div>
-              <h3 class="project-title">PulseApp — Wellness & Team Monitoring</h3>
-              <p class="project-description">
-                App mobile cross-platform per il monitoraggio del benessere dei team.
-                Progettata con focus su zero-friction UX: onboarding in 45 secondi,
-                flussi ridotti all'essenziale dopo usability testing esteso.
-                Backend real-time con WebSocket, analytics aggregate anonimizzate.
-              </p>
-              <div class="project-tags" aria-label="Tecnologie e discipline">
-                <span class="tag">React Native</span>
-                <span class="tag">TypeScript</span>
-                <span class="tag">Firebase</span>
-                <span class="tag">Figma</span>
-                <span class="tag">Usability Testing</span>
-              </div>
+              <h3 class="project-title">AutoPilot</h3>
+              <p class="project-desc">Sistema di automazione dei processi aziendali: mappatura BPMN, integrazione API, riduzione del 60% dei task manuali.</p>
+              <div class="project-tech"><span>BPMN 2.0</span><span>Python</span><span>n8n</span><span>REST API</span></div>
               <div class="project-actions">
-                <a href="#"
-                   class="btn btn-primary btn-sm"
-                   rel="noopener noreferrer"
-                   aria-label="Scopri il progetto PulseApp in dettaglio">
-                  Scopri il Progetto <span aria-hidden="true">→</span>
-                </a>
-                <a href="#"
-                   class="btn btn-demo btn-sm"
-                   rel="noopener noreferrer"
-                   data-coming-soon="true"
-                   aria-label="Demo di PulseApp prossimamente">
-                  <span class="demo-dot" aria-hidden="true"></span>
-                  Demo Live <span class="coming-soon-badge">Soon</span>
+                <button class="btn-project btn-project--demo" data-coming-soon="true">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                  Demo Live <span class="badge-soon">Soon</span>
+                </button>
+                <a href="https://github.com/imNayrb" class="btn-project btn-project--code" target="_blank" rel="noopener noreferrer">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                  Codice
                 </a>
               </div>
             </div>
           </article>
 
-          <!-- PROGETTO 5: Full Stack -->
-          <article class="project-card glass-card reveal-up" data-category="fullstack design" style="--delay: 0.4s">
-            <div class="project-media">
-              <div class="project-img-wrapper">
-                <div class="project-placeholder" aria-hidden="true">
-                  <div class="placeholder-icon">🛒</div>
-                  <div class="placeholder-label">E-Commerce Platform</div>
-                </div>
-                <div class="project-overlay">
-                  <div class="overlay-content">
-                    <a href="#" class="overlay-btn" aria-label="Scopri il progetto CartX">
-                      Scopri il progetto →
-                    </a>
+          <article class="project-card reveal-up" data-category="fullstack uxui" style="--delay:0s">
+            <div class="project-visual pv-indigo">
+              <div class="project-mockup">
+                <div class="mock-bar"><span></span><span></span><span></span></div>
+                <div class="mock-content">
+                  <div class="mock-palette-row">
+                    <div class="mock-swatch" style="background:#2563eb"></div>
+                    <div class="mock-swatch" style="background:#7c3aed"></div>
+                    <div class="mock-swatch" style="background:#06b6d4"></div>
+                    <div class="mock-swatch" style="background:#10b981"></div>
                   </div>
+                  <div class="mock-line" style="width:70%"></div>
+                  <div class="mock-line" style="width:50%"></div>
                 </div>
               </div>
+              <div class="pv-glow"></div>
             </div>
-            <div class="project-content">
+            <div class="project-info">
               <div class="project-meta">
-                <span class="project-number">05</span>
-                <span class="project-year">2023</span>
-              </div>
-              <h3 class="project-title">CartX — E-Commerce Headless</h3>
-              <p class="project-description">
-                Piattaforma e-commerce headless ad altissime prestazioni.
-                Ho progettato il checkout flow dopo analisi del funnel (drop-off −38%),
-                sviluppato l'intera stack frontend + API e integrato gateway di pagamento
-                e logistica. Score Lighthouse 98/100. Architettura JAMstack su CDN globale.
-              </p>
-              <div class="project-tags" aria-label="Tecnologie e discipline">
-                <span class="tag">Next.js</span>
-                <span class="tag">Stripe</span>
-                <span class="tag">Prisma</span>
-                <span class="tag">UX Research</span>
-                <span class="tag">Vercel</span>
-              </div>
-              <div class="project-actions">
-                <a href="#"
-                   class="btn btn-primary btn-sm"
-                   rel="noopener noreferrer"
-                   aria-label="Scopri il progetto CartX in dettaglio">
-                  Scopri il Progetto <span aria-hidden="true">→</span>
-                </a>
-                <a href="#"
-                   class="btn btn-demo btn-sm"
-                   rel="noopener noreferrer"
-                   data-coming-soon="true"
-                   aria-label="Demo di CartX prossimamente">
-                  <span class="demo-dot" aria-hidden="true"></span>
-                  Demo Live <span class="coming-soon-badge">Soon</span>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- PROGETTO 6: Process + Full Stack -->
-          <article class="project-card glass-card reveal-up" data-category="process fullstack" style="--delay: 0.5s">
-            <div class="project-media">
-              <div class="project-img-wrapper">
-                <div class="project-placeholder" aria-hidden="true">
-                  <div class="placeholder-icon">⚡</div>
-                  <div class="placeholder-label">Automation Dashboard</div>
-                </div>
-                <div class="project-overlay">
-                  <div class="overlay-content">
-                    <a href="#" class="overlay-btn" aria-label="Scopri il progetto HireLoop">
-                      Scopri il progetto →
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="project-content">
-              <div class="project-meta">
-                <span class="project-number">06</span>
+                <span class="project-tag tag--blue">Full Stack</span>
+                <span class="project-tag tag--purple">UX/UI</span>
                 <span class="project-year">2024</span>
               </div>
-              <h3 class="project-title">HireLoop — Pipeline HR Automatizzata</h3>
-              <p class="project-description">
-                Sistema di automazione del processo di recruiting per una società di consulenza.
-                Architettura del flusso end-to-end (sourcing→screening→colloqui→onboarding),
-                sviluppo di una dashboard per i recruiter e automazioni AI per il pre-screening
-                dei CV. Tempo medio di hiring ridotto da 47 a 18 giorni.
-              </p>
-              <div class="project-tags" aria-label="Tecnologie e discipline">
-                <span class="tag">Vue.js</span>
-                <span class="tag">Python</span>
-                <span class="tag">OpenAI API</span>
-                <span class="tag">Process Design</span>
-                <span class="tag">n8n</span>
-              </div>
+              <h3 class="project-title">PixelForge</h3>
+              <p class="project-desc">Tool creativo per designer: generazione palette AI, gestione asset, esportazione multi-formato e collaboration in tempo reale.</p>
+              <div class="project-tech"><span>Vue.js</span><span>FastAPI</span><span>Canvas API</span><span>WebGL</span></div>
               <div class="project-actions">
-                <a href="#"
-                   class="btn btn-primary btn-sm"
-                   rel="noopener noreferrer"
-                   aria-label="Scopri il progetto HireLoop in dettaglio">
-                  Scopri il Progetto <span aria-hidden="true">→</span>
-                </a>
-                <a href="#"
-                   class="btn btn-demo btn-sm"
-                   rel="noopener noreferrer"
-                   data-coming-soon="true"
-                   aria-label="Demo di HireLoop prossimamente">
-                  <span class="demo-dot" aria-hidden="true"></span>
-                  Demo Live <span class="coming-soon-badge">Soon</span>
+                <button class="btn-project btn-project--demo" data-coming-soon="true">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                  Demo Live <span class="badge-soon">Soon</span>
+                </button>
+                <a href="https://github.com/imNayrb" class="btn-project btn-project--code" target="_blank" rel="noopener noreferrer">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                  Codice
                 </a>
               </div>
             </div>
           </article>
 
-        </div><!-- /portfolio-grid -->
+          <article class="project-card reveal-up" data-category="fullstack" style="--delay:0.1s">
+            <div class="project-visual pv-teal">
+              <div class="project-mockup">
+                <div class="mock-bar"><span></span><span></span><span></span></div>
+                <div class="mock-chart">
+                  <div class="mock-bar-item" style="height:40%"></div>
+                  <div class="mock-bar-item" style="height:70%"></div>
+                  <div class="mock-bar-item" style="height:55%"></div>
+                  <div class="mock-bar-item" style="height:90%"></div>
+                  <div class="mock-bar-item" style="height:65%"></div>
+                  <div class="mock-bar-item" style="height:80%"></div>
+                </div>
+              </div>
+              <div class="pv-glow"></div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta">
+                <span class="project-tag tag--blue">Full Stack</span>
+                <span class="project-year">2023</span>
+              </div>
+              <h3 class="project-title">DataStream</h3>
+              <p class="project-desc">Dashboard analytics real-time per e-commerce: KPI live, funnel di conversione, heat map comportamentali e report automatici.</p>
+              <div class="project-tech"><span>Next.js</span><span>WebSocket</span><span>D3.js</span><span>Redis</span></div>
+              <div class="project-actions">
+                <button class="btn-project btn-project--demo" data-coming-soon="true">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                  Demo Live <span class="badge-soon">Soon</span>
+                </button>
+                <a href="https://github.com/imNayrb" class="btn-project btn-project--code" target="_blank" rel="noopener noreferrer">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                  Codice
+                </a>
+              </div>
+            </div>
+          </article>
 
-        <!-- CTA: vedi tutti su GitHub -->
-        <div class="portfolio-cta reveal-up">
-          <p>Vuoi vedere tutti i miei repository?</p>
-          <a href="https://github.com/tuousername"
-             class="btn btn-ghost"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Visita il mio profilo GitHub (apre in una nuova scheda)">
-            Vai al mio GitHub <span aria-hidden="true">↗</span>
-          </a>
+          <article class="project-card reveal-up" data-category="process uxui" style="--delay:0.2s">
+            <div class="project-visual pv-emerald">
+              <div class="project-mockup">
+                <div class="mock-bar"><span></span><span></span><span></span></div>
+                <div class="mock-content">
+                  <div class="mock-ai-badge">AI</div>
+                  <div class="mock-line" style="width:80%"></div>
+                  <div class="mock-line" style="width:60%"></div>
+                  <div class="mock-line" style="width:45%"></div>
+                </div>
+              </div>
+              <div class="pv-glow"></div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta">
+                <span class="project-tag tag--green">Process</span>
+                <span class="project-tag tag--purple">UX/UI</span>
+                <span class="project-year">2024</span>
+              </div>
+              <h3 class="project-title">WorkflowAI</h3>
+              <p class="project-desc">Ottimizzatore di flussi di lavoro AI-powered: analisi automatica dei colli di bottiglia, suggerimenti intelligenti e dashboard predittiva.</p>
+              <div class="project-tech"><span>Python</span><span>OpenAI API</span><span>React</span><span>Celery</span></div>
+              <div class="project-actions">
+                <button class="btn-project btn-project--demo" data-coming-soon="true">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                  Demo Live <span class="badge-soon">Soon</span>
+                </button>
+                <a href="https://github.com/imNayrb" class="btn-project btn-project--code" target="_blank" rel="noopener noreferrer">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                  Codice
+                </a>
+              </div>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
 
-    <!-- ========== CONTACT SECTION ========== -->
-    <section class="contact section" id="contact" aria-label="Contatti">
+    <!-- ===================== CONTACT ===================== -->
+    <section id="contact" class="section contact-section" aria-labelledby="contact-title">
       <div class="container">
-        <div class="section-header reveal-up">
-          <span class="section-tag">// Contatti</span>
-          <h2 class="section-title">Lavoriamo <span class="gradient-text">insieme</span></h2>
-          <p class="section-subtitle">Hai bisogno di un prodotto sviluppato, un'interfaccia riprogettata o un processo ottimizzato? Parliamone — rispondo entro 24h.</p>
+        <div class="section-header">
+          <span class="section-tag reveal-up">Contatti</span>
+          <h2 id="contact-title" class="section-title reveal-up" style="--delay:0.1s">Hai un progetto<br>in mente?</h2>
+          <p class="section-sub reveal-up" style="--delay:0.2s">Parliamoci. Rispondo entro 24 ore.</p>
         </div>
 
         <div class="contact-grid">
-          <!-- Info contatto -->
-          <div class="contact-info reveal-left">
-            <div class="contact-channels">
-              <a href="tel:+393297148514"
-                 class="contact-channel glass-card"
-                 aria-label="Chiamami al +39 329 714 8514">
-                <span class="channel-icon" aria-hidden="true">📞</span>
-                <div class="channel-content">
-                  <span class="channel-label">Telefono</span>
-                  <span class="channel-value">+39 329 714 8514</span>
-                </div>
-                <span class="channel-arrow" aria-hidden="true">→</span>
-              </a>
-
-              <a href="mailto:bryan.uppolo@gmail.com"
-                 class="contact-channel glass-card"
-                 aria-label="Scrivimi via email">
-                <span class="channel-icon" aria-hidden="true">✉️</span>
-                <div class="channel-content">
-                  <span class="channel-label">Email</span>
-                  <span class="channel-value">bryan.uppolo@gmail.com</span>
-                </div>
-                <span class="channel-arrow" aria-hidden="true">→</span>
-              </a>
-
-              <a href="https://linkedin.com/in/tuoprofilo"
-                 class="contact-channel glass-card"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 aria-label="Connettiti su LinkedIn (apre in una nuova scheda)">
-                <span class="channel-icon" aria-hidden="true">💼</span>
-                <div class="channel-content">
-                  <span class="channel-label">LinkedIn</span>
-                  <span class="channel-value">linkedin.com/in/tuoprofilo</span>
-                </div>
-                <span class="channel-arrow" aria-hidden="true">→</span>
-              </a>
-
-              <a href="https://github.com/tuousername"
-                 class="contact-channel glass-card"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 aria-label="Seguimi su GitHub (apre in una nuova scheda)">
-                <span class="channel-icon" aria-hidden="true">👨‍💻</span>
-                <div class="channel-content">
-                  <span class="channel-label">GitHub</span>
-                  <span class="channel-value">github.com/tuousername</span>
-                </div>
-                <span class="channel-arrow" aria-hidden="true">→</span>
-              </a>
-            </div>
-
-            <div class="contact-availability glass-card">
-              <div class="avail-header">
-                <span class="avail-dot"></span>
-                <strong>Disponibile per nuovi progetti</strong>
+          <div class="contact-channels reveal-up" style="--delay:0.1s">
+            <a href="mailto:bryan.uppolo@gmail.com" class="channel-card glass-card" aria-label="Scrivi email a Bryan Uppolo">
+              <div class="channel-icon channel-icon--blue">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
               </div>
-              <p>Sviluppo full stack, UX/UI design e architettura dei processi — freelance, contratti e collaborazioni remote.</p>
-            </div>
+              <div class="channel-info">
+                <span class="channel-label">Email</span>
+                <span class="channel-value">bryan.uppolo@gmail.com</span>
+              </div>
+              <svg class="channel-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="tel:+393297148514" class="channel-card glass-card" aria-label="Chiama Bryan Uppolo">
+              <div class="channel-icon channel-icon--green">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.29h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.83-1.84a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div class="channel-info">
+                <span class="channel-label">Telefono</span>
+                <span class="channel-value">+39 329 714 8514</span>
+              </div>
+              <svg class="channel-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="https://github.com/imNayrb" class="channel-card glass-card" target="_blank" rel="noopener noreferrer" aria-label="GitHub di Bryan Uppolo">
+              <div class="channel-icon channel-icon--white">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              </div>
+              <div class="channel-info">
+                <span class="channel-label">GitHub</span>
+                <span class="channel-value">github.com/imNayrb</span>
+              </div>
+              <svg class="channel-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="https://linkedin.com/in/tuoprofilo" class="channel-card glass-card" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn di Bryan Uppolo">
+              <div class="channel-icon channel-icon--linkedin">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </div>
+              <div class="channel-info">
+                <span class="channel-label">LinkedIn</span>
+                <span class="channel-value">linkedin.com/in/tuoprofilo</span>
+              </div>
+              <svg class="channel-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
           </div>
 
-          <!-- Form contatti -->
-          <div class="contact-form-wrapper reveal-right">
-            <!--
-              SICUREZZA FORM:
-              - Il form invia a Formspree (servizio sicuro di terze parti)
-              - Nessun dato sensibile nel codice lato client
-              - Validazione + sanitizzazione lato JS prima dell'invio
-              - Token CSRF gestito da Formspree
-              - Sostituire YOUR_FORMSPREE_ID con il proprio endpoint da formspree.io
-            -->
-            <form
-              id="contactForm"
-              class="contact-form glass-card"
-              action="https://formspree.io/f/YOUR_FORMSPREE_ID"
-              method="POST"
-              novalidate
-              aria-label="Modulo di contatto"
-            >
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="contactName" class="form-label">Nome <span aria-label="campo obbligatorio">*</span></label>
-                  <input
-                    type="text"
-                    id="contactName"
-                    name="name"
-                    class="form-input"
-                    placeholder="Mario Rossi"
-                    required
-                    minlength="2"
-                    maxlength="60"
-                    autocomplete="name"
-                    aria-describedby="nameError"
-                  />
-                  <span class="form-error" id="nameError" role="alert" aria-live="polite"></span>
-                </div>
-
-                <div class="form-group">
-                  <label for="contactEmail" class="form-label">Email <span aria-label="campo obbligatorio">*</span></label>
-                  <input
-                    type="email"
-                    id="contactEmail"
-                    name="email"
-                    class="form-input"
-                    placeholder="mario@esempio.com"
-                    required
-                    maxlength="254"
-                    autocomplete="email"
-                    aria-describedby="emailError"
-                  />
-                  <span class="form-error" id="emailError" role="alert" aria-live="polite"></span>
-                </div>
-              </div>
-
+          <form id="contact-form" class="contact-form glass-card reveal-up" style="--delay:0.2s" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" novalidate aria-label="Modulo di contatto">
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <div class="form-row">
               <div class="form-group">
-                <label for="contactSubject" class="form-label">Oggetto</label>
-                <input
-                  type="text"
-                  id="contactSubject"
-                  name="subject"
-                  class="form-input"
-                  placeholder="Proposta di collaborazione"
-                  maxlength="120"
-                />
+                <label for="contact-name" class="form-label">Nome *</label>
+                <input type="text" id="contact-name" name="name" class="form-input" placeholder="Il tuo nome" required autocomplete="name" aria-required="true" />
+                <span class="form-error" role="alert" aria-live="polite"></span>
               </div>
-
               <div class="form-group">
-                <label for="contactMessage" class="form-label">Messaggio <span aria-label="campo obbligatorio">*</span></label>
-                <textarea
-                  id="contactMessage"
-                  name="message"
-                  class="form-input form-textarea"
-                  placeholder="Raccontami del tuo progetto..."
-                  required
-                  minlength="20"
-                  maxlength="2000"
-                  rows="5"
-                  aria-describedby="messageError"
-                ></textarea>
-                <div class="textarea-footer">
-                  <span class="form-error" id="messageError" role="alert" aria-live="polite"></span>
-                  <span class="char-count" id="charCount" aria-live="polite">0 / 2000</span>
-                </div>
+                <label for="contact-email" class="form-label">Email *</label>
+                <input type="email" id="contact-email" name="email" class="form-input" placeholder="tua@email.com" required autocomplete="email" aria-required="true" />
+                <span class="form-error" role="alert" aria-live="polite"></span>
               </div>
-
-              <!-- Honeypot anti-spam (nascosto visualmente e per screen reader) -->
-              <div class="form-group visually-hidden" aria-hidden="true">
-                <label for="hp_website">Website (non compilare)</label>
-                <input type="text" id="hp_website" name="_gotcha" tabindex="-1" autocomplete="off" />
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">
-                <span class="btn-text">Invia messaggio</span>
-                <span class="btn-icon" aria-hidden="true">→</span>
-                <span class="btn-loading" aria-hidden="true">
-                  <span class="spinner"></span>
-                </span>
-              </button>
-
-              <!-- Feedback invio -->
-              <div class="form-feedback" id="formFeedback" role="alert" aria-live="assertive"></div>
-            </form>
-          </div>
+            </div>
+            <div class="form-group">
+              <label for="contact-subject" class="form-label">Oggetto</label>
+              <input type="text" id="contact-subject" name="subject" class="form-input" placeholder="Di cosa hai bisogno?" autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <label for="contact-message" class="form-label">Messaggio *</label>
+              <textarea id="contact-message" name="message" class="form-input form-textarea" placeholder="Raccontami del tuo progetto..." required rows="5" aria-required="true"></textarea>
+              <span class="form-error" role="alert" aria-live="polite"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" id="submit-btn">
+              <span class="btn-text">Invia messaggio</span>
+              <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7z"/><path d="M22 2 11 13"/></svg>
+              <span class="btn-spinner" aria-hidden="true"></span>
+            </button>
+          </form>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- ========== FOOTER ========== -->
-  <footer class="footer" role="contentinfo">
+  <footer class="site-footer" role="contentinfo">
     <div class="container">
-      <div class="footer-content">
+      <div class="footer-inner">
         <div class="footer-brand">
-          <a href="#hero" class="nav-logo" aria-label="Torna all'inizio">
-            <span class="nav-logo-bracket">{</span>
-            <span class="nav-logo-initials">YN</span>
-            <span class="nav-logo-bracket">}</span>
-          </a>
-          <p>Costruito con passione, attenzione ai dettagli e <span aria-label="caffè">☕</span></p>
+          <span class="logo-text">BU</span>
+          <span class="footer-tagline">Full Stack · UX/UI · Process</span>
         </div>
-
-        <nav class="footer-links" aria-label="Link footer">
-          <a href="#about">About</a>
-          <a href="#portfolio">Portfolio</a>
-          <a href="#contact">Contatti</a>
-          <a href="assets/cv-tuonome.pdf" download>CV</a>
-        </nav>
-
-        <div class="footer-social">
-          <a href="https://github.com/tuousername"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="GitHub (apre in una nuova scheda)">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-              <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-            </svg>
+        <p class="footer-copy">&copy; <span id="footer-year"></span> Bryan Uppolo — Fatto con cura.</p>
+        <div class="footer-links">
+          <a href="https://github.com/imNayrb" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
           </a>
-          <a href="https://linkedin.com/in/tuoprofilo"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="LinkedIn (apre in una nuova scheda)">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
+          <a href="mailto:bryan.uppolo@gmail.com" aria-label="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           </a>
         </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>© <span id="currentYear"></span> Bryan Uppolo — Tutti i diritti riservati.</p>
-        <p class="footer-made">Made with <span aria-label="amore">❤️</span> in Italia</p>
       </div>
     </div>
   </footer>
 
-  <!-- Toast notification per feedback UI -->
-  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
+  <script src="js/vendor/motion.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
