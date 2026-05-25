@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
 </head>
 <body>
 
@@ -65,62 +66,96 @@
     <section id="hero" class="hero-section" aria-label="Presentazione">
       <canvas id="hero-canvas" aria-hidden="true"></canvas>
 
+      <!-- Mouse-tracking spotlight overlay -->
+      <div id="hero-spotlight" class="hero-spotlight" aria-hidden="true"></div>
+
+      <!-- SVG beam (Aceternity spotlight style) -->
+      <svg class="hero-spotlight-svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3787 2842" fill="none">
+        <g filter="url(#sf)">
+          <ellipse cx="1924.71" cy="273.501" rx="1924.71" ry="273.501"
+            transform="matrix(-0.822377 -0.568943 -0.568943 0.822377 3631.88 2291.09)"
+            fill="white" fill-opacity="0.14"></ellipse>
+        </g>
+        <defs>
+          <filter id="sf" x="0.860352" y="0.838989" width="3785.16" height="2840.26"
+            filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+            <feGaussianBlur stdDeviation="151" result="blur"></feGaussianBlur>
+          </filter>
+        </defs>
+      </svg>
+
       <div class="hero-orbs" aria-hidden="true">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
       </div>
 
-      <div class="hero-content">
-        <div class="hero-badge reveal-up">
-          <span class="badge-dot"></span>
-          <span>Disponibile per nuovi progetti</span>
-        </div>
+      <!-- Split layout: text left · 3D right -->
+      <div class="hero-split">
 
-        <h1 class="hero-title reveal-up" style="--delay:0.1s">
-          <span class="title-line title-greeting">Ciao, sono</span>
-          <span class="title-name">Bryan<br><span class="name-accent">Uppolo</span></span>
-        </h1>
-
-        <div class="hero-roles reveal-up" style="--delay:0.2s" aria-live="polite">
-          <span class="role-prefix">— </span>
-          <span id="typed-role" class="role-typed"></span>
-          <span class="role-cursor" aria-hidden="true">|</span>
-        </div>
-
-        <p class="hero-bio reveal-up" style="--delay:0.3s">
-          Costruisco prodotti digitali che uniscono codice solido,<br class="br-desktop">
-          design elegante e processi efficienti.
-        </p>
-
-        <div class="hero-actions reveal-up" style="--delay:0.4s">
-          <a href="#projects" class="btn btn-primary">
-            <span>Vedi i progetti</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
-          <a href="assets/cv-bryan-uppolo.pdf" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-            <span>Scarica CV</span>
-          </a>
-        </div>
-
-        <div class="hero-stats reveal-up" style="--delay:0.5s" aria-label="Statistiche">
-          <div class="stat-item">
-            <span class="stat-number" data-target="3">0</span>
-            <span class="stat-label">Discipline<br>integrate</span>
+        <!-- LEFT: Text content -->
+        <div class="hero-content">
+          <div class="hero-badge reveal-up">
+            <span class="badge-dot"></span>
+            <span>Disponibile per nuovi progetti</span>
           </div>
-          <div class="stat-divider" aria-hidden="true"></div>
-          <div class="stat-item">
-            <span class="stat-number" data-target="20" data-suffix="+">0</span>
-            <span class="stat-label">Progetti<br>completati</span>
+
+          <h1 class="hero-title reveal-up" style="--delay:0.1s">
+            <span class="title-line title-greeting">Ciao, sono</span>
+            <span class="title-name">Bryan<br><span class="name-accent">Uppolo</span></span>
+          </h1>
+
+          <div class="hero-roles reveal-up" style="--delay:0.2s" aria-live="polite">
+            <span class="role-prefix">— </span>
+            <span id="typed-role" class="role-typed"></span>
+            <span class="role-cursor" aria-hidden="true">|</span>
           </div>
-          <div class="stat-divider" aria-hidden="true"></div>
-          <div class="stat-item">
-            <span class="stat-number" data-target="100" data-suffix="%">0</span>
-            <span class="stat-label">Clienti<br>soddisfatti</span>
+
+          <p class="hero-bio reveal-up" style="--delay:0.3s">
+            Costruisco prodotti digitali che uniscono codice solido,<br class="br-desktop">
+            design elegante e processi efficienti.
+          </p>
+
+          <div class="hero-actions reveal-up" style="--delay:0.4s">
+            <a href="#projects" class="btn btn-primary">
+              <span>Vedi i progetti</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="assets/cv-bryan-uppolo.pdf" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+              <span>Scarica CV</span>
+            </a>
+          </div>
+
+          <div class="hero-stats reveal-up" style="--delay:0.5s" aria-label="Statistiche">
+            <div class="stat-item">
+              <span class="stat-number" data-target="3">0</span>
+              <span class="stat-label">Discipline<br>integrate</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="20" data-suffix="+">0</span>
+              <span class="stat-label">Progetti<br>completati</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="100" data-suffix="%">0</span>
+              <span class="stat-label">Clienti<br>soddisfatti</span>
+            </div>
           </div>
         </div>
-      </div>
+
+        <!-- RIGHT: Interactive 3D Spline -->
+        <div class="hero-3d-panel" aria-hidden="true">
+          <div class="hero-3d-inner">
+            <spline-viewer url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"></spline-viewer>
+            <div class="hero-3d-fade"></div>
+          </div>
+        </div>
+
+      </div><!-- /hero-split -->
 
       <a href="#about" class="scroll-indicator" aria-label="Scorri verso About">
         <div class="scroll-mouse">
