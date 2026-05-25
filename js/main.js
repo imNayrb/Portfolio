@@ -240,6 +240,7 @@ function initScrollParallax() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const heroContent = document.querySelector('.hero-content');
   const heroOrbs    = document.querySelector('.hero-orbs');
+  const hero3d      = document.querySelector('.hero-3d-panel');
   if (!heroContent) return;
 
   let ticking = false;
@@ -251,9 +252,31 @@ function initScrollParallax() {
       heroContent.style.transform = `translateY(${p * 100}px)`;
       heroContent.style.opacity   = `${1 - p * 2}`;
       if (heroOrbs) heroOrbs.style.transform = `translateY(${p * 160}px)`;
+      if (hero3d)   hero3d.style.transform   = `translateY(${p * 55}px)`;
       ticking = false;
     });
   }, { passive: true });
+}
+
+/* ── Hero spotlight (mouse-tracking radial) ─────────────────── */
+function initSpotlight() {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+  const hero = document.getElementById('hero');
+  const spot = document.getElementById('hero-spotlight');
+  if (!hero || !spot) return;
+
+  let raf;
+  spot.style.background = 'radial-gradient(700px circle at 30% 50%, rgba(37,99,235,0.07) 0%, rgba(124,58,237,0.04) 40%, transparent 70%)';
+
+  hero.addEventListener('mousemove', e => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const rect = hero.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width  * 100).toFixed(2);
+      const y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(2);
+      spot.style.background = `radial-gradient(700px circle at ${x}% ${y}%, rgba(37,99,235,0.1) 0%, rgba(124,58,237,0.06) 35%, transparent 70%)`;
+    });
+  });
 }
 
 /* ── 3D Card Tilt + Spotlight ───────────────────────────────── */
@@ -512,6 +535,7 @@ function init() {
   initSplitText();
   initCounters();
   initScrollParallax();
+  initSpotlight();
   initCardTilt();
   initMagnetic();
   initSkillBars();
