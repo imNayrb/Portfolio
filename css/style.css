@@ -665,8 +665,10 @@ body:has(button:hover) #cursor-trail { transform: translate(-50%,-50%) scale(1.5
   flex-direction: column;
   gap: 10px;
   cursor: default;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
 }
-.about-card:hover { transform: translateX(4px); }
 .card-icon {
   width: 44px; height: 44px;
   border-radius: var(--radius-sm);
@@ -804,14 +806,11 @@ body:has(button:hover) #cursor-trail { transform: translate(-50%,-50%) scale(1.5
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: transform 0.3s var(--ease-out), box-shadow 0.3s, border-color 0.3s;
+  position: relative;
+  will-change: transform;
   cursor: default;
 }
-.project-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(255,255,255,0.12);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-}
+.project-card:hover { border-color: rgba(255,255,255,0.12); }
 .project-card.filtered-out {
   opacity: 0;
   transform: scale(0.9);
@@ -1208,4 +1207,66 @@ body:has(button:hover) #cursor-trail { transform: translate(-50%,-50%) scale(1.5
   .hero-orbs, #hero-canvas, .toast { display: none !important; }
   body { background: #fff; color: #000; }
   .section { padding: 40px 0; }
+}
+
+/* ── Card 3D Tilt + Spotlight ───────────────────────────────── */
+.card-spotlight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.skill-category {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.channel-card {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.contact-form {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* ── Cursor hover states ────────────────────────────────────── */
+#cursor.cursor--hover {
+  width: 16px; height: 16px;
+  background: var(--purple);
+  transform: translate(-50%, -50%) scale(1.2);
+}
+#cursor-trail.cursor-trail--hover {
+  transform: translate(-50%, -50%) scale(1.8);
+  opacity: 0.4;
+  border-color: rgba(124,58,237,0.5);
+}
+
+/* ── Split text letters ─────────────────────────────────────── */
+.sl { display: inline-block; }
+
+/* ── Hero parallax wrapper ──────────────────────────────────── */
+.hero-content {
+  will-change: transform, opacity;
+}
+.hero-orbs {
+  will-change: transform;
+}
+
+/* ── Project visual mockup lifts on 3D tilt ────────────────── */
+.project-card:hover .project-mockup {
+  transform: translateY(-6px) scale(1.03);
+}
+
+/* ── Magnetic buttons keep their shape ──────────────────────── */
+.btn, .nav-cta {
+  will-change: transform;
 }
