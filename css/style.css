@@ -1479,6 +1479,21 @@ body:has(button:hover) #cursor-trail { transform: translate(-50%,-50%) scale(1.5
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 56px;
+  /* Pass mouse events through to Spline viewer underneath */
+  pointer-events: none;
+}
+.hero-content {
+  pointer-events: none;
+}
+/* Re-enable clicks on interactive hero elements */
+.hero-content .btn,
+.hero-content a,
+.hero-content .hero-badge,
+.scroll-indicator {
+  pointer-events: auto;
+}
+#hero-canvas {
+  pointer-events: none;
 }
 
 /* Mouse-tracking spotlight */
