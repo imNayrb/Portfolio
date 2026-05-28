@@ -5,14 +5,14 @@
 
 'use strict';
 
-/* ── Motion with fallback ───────────────────────────────────── */
+/* ── Motion with fallback ─────────────────────────────────────── */
 const _M = typeof Motion !== 'undefined' ? Motion : {};
 const animate = _M.animate || (() => ({ then: f => { f && f(); return { cancel: () => {} }; } }));
 const inView  = _M.inView  || ((sel, cb) => { try { const el = typeof sel === 'string' ? document.querySelector(sel) : sel; if (el) cb(el); } catch(e) {} });
 const scroll  = _M.scroll  || (() => {});
 const stagger = _M.stagger || (() => 0);
 
-/* ── Utils ──────────────────────────────────────────────────── */
+/* ── Utils ────────────────────────────────────────────────────── */
 function sanitize(str) {
   return String(str)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -22,7 +22,7 @@ function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
 function lerp(a, b, t) { return a + (b - a) * t; }
 function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
 
-/* ── Loader ─────────────────────────────────────────────────── */
+/* ── Loader ───────────────────────────────────────────────────── */
 function initLoader() {
   const loader = document.getElementById('loader');
   const fill   = loader?.querySelector('.loader-fill');
@@ -37,7 +37,7 @@ function initLoader() {
   else window.addEventListener('load', () => setTimeout(hide, 1600), { once: true });
 }
 
-/* ── Cursor ─────────────────────────────────────────────────── */
+/* ── Cursor ───────────────────────────────────────────────────── */
 function initCursor() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
   const dot  = document.getElementById('cursor');
@@ -103,7 +103,7 @@ function initNavigation() {
   sections.forEach(s => obs.observe(s));
 }
 
-/* ── 3D Depth Particles ─────────────────────────────────────── */
+/* ── 3D Depth Particles ───────────────────────────────────────── */
 function initParticles() {
   const canvas = document.getElementById('hero-canvas');
   if (!canvas) return;
@@ -120,7 +120,10 @@ function initParticles() {
     targetMY = (e.clientY / window.innerHeight - 0.5);
   });
 
-  const N = Math.min(90, Math.floor((W * H) / 10000));
+  const isMobile = window.matchMedia('(pointer: coarse)').matches;
+  const N = isMobile
+    ? Math.min(20, Math.floor((W * H) / 18000))
+    : Math.min(90, Math.floor((W * H) / 10000));
   const particles = Array.from({ length: N }, () => ({
     x: Math.random() * W, y: Math.random() * H,
     z: Math.random(),
@@ -152,6 +155,7 @@ function initParticles() {
       ctx.fillStyle = `rgba(${c},${alpha})`;
       ctx.fill();
 
+      // glow on bright particles
       if (p.z > 0.7) {
         ctx.beginPath();
         ctx.arc(px, py, scale * 3, 0, Math.PI * 2);
@@ -159,7 +163,7 @@ function initParticles() {
         ctx.fill();
       }
 
-      particles.forEach((q, j) => {
+      if (!isMobile) particles.forEach((q, j) => {
         if (j <= i) return;
         const qx = q.x + mouseX * 50 * q.z;
         const qy = q.y + mouseY * 50 * q.z;
@@ -183,7 +187,7 @@ function initParticles() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) cancelAnimationFrame(animId);
 }
 
-/* ── Typed text ─────────────────────────────────────────────── */
+/* ── Typed text ────────────────────────────────────────────────── */
 function initTypedText() {
   const el = document.getElementById('typed-role');
   if (!el) return;
@@ -199,7 +203,7 @@ function initTypedText() {
   setTimeout(type, 600);
 }
 
-/* ── Split-text hero name ───────────────────────────────────── */
+/* ── Split-text hero name ─────────────────────────────────────── */
 function initSplitText() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const nameEl = document.querySelector('.name-accent');
@@ -217,7 +221,7 @@ function initSplitText() {
   });
 }
 
-/* ── Counters ───────────────────────────────────────────────── */
+/* ── Counters ──────────────────────────────────────────────────── */
 function initCounters() {
   const counters = document.querySelectorAll('.stat-number[data-target]');
   if (!counters.length) return;
@@ -235,12 +239,12 @@ function initCounters() {
   });
 }
 
-/* ── Hero Scroll Parallax ───────────────────────────────────── */
+/* ── Hero Scroll Parallax ─────────────────────────────────────── */
 function initScrollParallax() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(pointer: coarse)').matches) return;
   const heroContent = document.querySelector('.hero-content');
   const heroOrbs    = document.querySelector('.hero-orbs');
-  const hero3d      = document.querySelector('.hero-3d-panel');
   if (!heroContent) return;
 
   let ticking = false;
@@ -249,16 +253,15 @@ function initScrollParallax() {
     ticking = true;
     requestAnimationFrame(() => {
       const p = clamp(window.scrollY / window.innerHeight, 0, 1);
-      heroContent.style.transform = `translateY(${p * 100}px)`;
+      heroContent.style.transform = `translateY(${p * 80}px)`;
       heroContent.style.opacity   = `${1 - p * 2}`;
-      if (heroOrbs) heroOrbs.style.transform = `translateY(${p * 160}px)`;
-      if (hero3d)   hero3d.style.transform   = `translateY(${p * 55}px)`;
+      if (heroOrbs) heroOrbs.style.transform = `translateY(${p * 130}px)`;
       ticking = false;
     });
   }, { passive: true });
 }
 
-/* ── Hero spotlight (mouse-tracking radial) ─────────────────── */
+/* ── Hero spotlight (mouse-tracking radial) ────────────────────── */
 function initSpotlight() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
   const hero = document.getElementById('hero');
@@ -279,11 +282,12 @@ function initSpotlight() {
   });
 }
 
-/* ── 3D Card Tilt + Spotlight ───────────────────────────────── */
+/* ── 3D Card Tilt + Spotlight ─────────────────────────────────── */
 function initCardTilt() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
 
   document.querySelectorAll('.project-card, .about-card, .skill-category, .channel-card, .contact-form').forEach(card => {
+    // inject spotlight overlay
     const spot = document.createElement('div');
     spot.className = 'card-spotlight';
     card.insertBefore(spot, card.firstChild);
@@ -317,7 +321,7 @@ function initCardTilt() {
   });
 }
 
-/* ── Magnetic buttons ───────────────────────────────────────── */
+/* ── Magnetic buttons ──────────────────────────────────────────── */
 function initMagnetic() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
   document.querySelectorAll('.btn, .nav-cta').forEach(el => {
@@ -333,7 +337,7 @@ function initMagnetic() {
   });
 }
 
-/* ── Scroll reveal ──────────────────────────────────────────── */
+/* ── Scroll reveal ────────────────────────────────────────────── */
 function initScrollReveal() {
   const els = document.querySelectorAll('.reveal-up');
   if (!els.length) return;
@@ -353,7 +357,7 @@ function initScrollReveal() {
   els.forEach(el => obs.observe(el));
 }
 
-/* ── Skill bars ─────────────────────────────────────────────── */
+/* ── Skill bars ────────────────────────────────────────────────── */
 function initSkillBars() {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   inView('.skills-grid', () => {
@@ -365,7 +369,7 @@ function initSkillBars() {
   }, { amount: 0.2 });
 }
 
-/* ── Project filters ────────────────────────────────────────── */
+/* ── Project filters ───────────────────────────────────────────── */
 function initProjectFilters() {
   const btns  = document.querySelectorAll('.filter-btn');
   const cards = document.querySelectorAll('.project-card');
@@ -388,7 +392,7 @@ function initProjectFilters() {
   });
 }
 
-/* ── Demo buttons ───────────────────────────────────────────── */
+/* ── Demo buttons ─────────────────────────────────────────────── */
 function initDemoButtons() {
   document.querySelectorAll('[data-coming-soon]').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -398,7 +402,7 @@ function initDemoButtons() {
   });
 }
 
-/* ── Contact form ───────────────────────────────────────────── */
+/* ── Contact form ─────────────────────────────────────────────── */
 function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
@@ -434,7 +438,7 @@ function initContactForm() {
   });
 }
 
-/* ── Toast ──────────────────────────────────────────────────── */
+/* ── Toast ─────────────────────────────────────────────────────── */
 function showToast(msg, type = 'info') {
   const toast = document.getElementById('toast');
   if (!toast) return;
@@ -445,7 +449,7 @@ function showToast(msg, type = 'info') {
   setTimeout(() => toast.classList.remove('show'), 3500);
 }
 
-/* ── Hero entry animations ──────────────────────────────────── */
+/* ── Hero entry animations ──────────────────────────────────────── */
 function startEntryAnimations() {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduced) { document.querySelectorAll('.reveal-up').forEach(el => el.classList.add('visible')); return; }
@@ -457,7 +461,7 @@ function startEntryAnimations() {
   initScrollReveal();
 }
 
-/* ── Nav hover ──────────────────────────────────────────────── */
+/* ── Nav hover ────────────────────────────────────────────────── */
 function initNavHovers() {
   const logo = document.querySelector('.nav-logo');
   if (logo) logo.addEventListener('mouseenter', () =>
@@ -465,7 +469,7 @@ function initNavHovers() {
   );
 }
 
-/* ── Dynamic age ────────────────────────────────────────────── */
+/* ── Dynamic age ───────────────────────────────────────────────── */
 function initDynamicAge() {
   const el = document.getElementById('dynamic-age');
   if (!el) return;
@@ -475,13 +479,13 @@ function initDynamicAge() {
   el.textContent = age;
 }
 
-/* ── Footer year ────────────────────────────────────────────── */
+/* ── Footer year ───────────────────────────────────────────────── */
 function initYear() {
   const el = document.getElementById('footer-year');
   if (el) el.textContent = new Date().getFullYear();
 }
 
-/* ── Smooth scroll ──────────────────────────────────────────── */
+/* ── Smooth scroll ─────────────────────────────────────────────── */
 function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
@@ -493,7 +497,7 @@ function initSmoothScroll() {
   });
 }
 
-/* ── Form focus ─────────────────────────────────────────────── */
+/* ── Form focus ────────────────────────────────────────────────── */
 function initFormEffects() {
   document.querySelectorAll('.form-input').forEach(inp => {
     inp.addEventListener('focus', () => animate(inp, { scale: [1, 1.012] }, { duration: 0.2 }));
@@ -501,7 +505,7 @@ function initFormEffects() {
   });
 }
 
-/* ── Channel card arrows ────────────────────────────────────── */
+/* ── Channel card arrows ─────────────────────────────────────────── */
 function initChannelHovers() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
   document.querySelectorAll('.channel-card').forEach(card => {
@@ -512,7 +516,7 @@ function initChannelHovers() {
   });
 }
 
-/* ── Scroll-driven section color shift ──────────────────────── */
+/* ── Scroll-driven section color shift ──────────────────────────── */
 function initSectionColors() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const sections = ['about', 'skills', 'projects', 'contact'];
@@ -525,7 +529,7 @@ function initSectionColors() {
   });
 }
 
-/* ── Init ───────────────────────────────────────────────────── */
+/* ── Init ───────────────────────────────────────────────────────── */
 function init() {
   initLoader();
   initCursor();
