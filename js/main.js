@@ -120,7 +120,10 @@ function initParticles() {
     targetMY = (e.clientY / window.innerHeight - 0.5);
   });
 
-  const N = Math.min(90, Math.floor((W * H) / 10000));
+  const isMobile = window.matchMedia('(pointer: coarse)').matches;
+  const N = isMobile
+    ? Math.min(20, Math.floor((W * H) / 18000))
+    : Math.min(90, Math.floor((W * H) / 10000));
   const particles = Array.from({ length: N }, () => ({
     x: Math.random() * W, y: Math.random() * H,
     z: Math.random(),
@@ -160,7 +163,7 @@ function initParticles() {
         ctx.fill();
       }
 
-      particles.forEach((q, j) => {
+      if (!isMobile) particles.forEach((q, j) => {
         if (j <= i) return;
         const qx = q.x + mouseX * 50 * q.z;
         const qy = q.y + mouseY * 50 * q.z;
@@ -239,9 +242,9 @@ function initCounters() {
 /* ── Hero Scroll Parallax ───────────────────────────────────── */
 function initScrollParallax() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(pointer: coarse)').matches) return;
   const heroContent = document.querySelector('.hero-content');
   const heroOrbs    = document.querySelector('.hero-orbs');
-  const hero3d      = document.querySelector('.hero-3d-panel');
   if (!heroContent) return;
 
   let ticking = false;
@@ -250,10 +253,9 @@ function initScrollParallax() {
     ticking = true;
     requestAnimationFrame(() => {
       const p = clamp(window.scrollY / window.innerHeight, 0, 1);
-      heroContent.style.transform = `translateY(${p * 100}px)`;
+      heroContent.style.transform = `translateY(${p * 80}px)`;
       heroContent.style.opacity   = `${1 - p * 2}`;
-      if (heroOrbs) heroOrbs.style.transform = `translateY(${p * 160}px)`;
-      if (hero3d)   hero3d.style.transform   = `translateY(${p * 55}px)`;
+      if (heroOrbs) heroOrbs.style.transform = `translateY(${p * 130}px)`;
       ticking = false;
     });
   }, { passive: true });

@@ -92,10 +92,14 @@
         <div class="orb orb-3"></div>
       </div>
 
-      <!-- Split layout: text left · 3D right -->
-      <div class="hero-split">
+      <!-- Full-screen Spline background -->
+      <div class="hero-spline-bg" aria-hidden="true">
+        <spline-viewer url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"></spline-viewer>
+      </div>
+      <div class="hero-spline-overlay" aria-hidden="true"></div>
 
-        <!-- LEFT: Text content -->
+      <!-- Hero content (no more split) -->
+      <div class="hero-split">
         <div class="hero-content">
           <div class="hero-badge reveal-up">
             <span class="badge-dot"></span>
@@ -144,14 +148,6 @@
               <span class="stat-number" data-target="100" data-suffix="%">0</span>
               <span class="stat-label">Clienti<br>soddisfatti</span>
             </div>
-          </div>
-        </div>
-
-        <!-- RIGHT: Interactive 3D Spline -->
-        <div class="hero-3d-panel" aria-hidden="true">
-          <div class="hero-3d-inner">
-            <spline-viewer url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"></spline-viewer>
-            <div class="hero-3d-fade"></div>
           </div>
         </div>
 
