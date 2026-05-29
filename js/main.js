@@ -5,14 +5,14 @@
 
 'use strict';
 
-/* ── Motion with fallback ─────────────────────────────────────── */
+/* ── Motion with fallback ───────────────────────────────────── */
 const _M = typeof Motion !== 'undefined' ? Motion : {};
 const animate = _M.animate || (() => ({ then: f => { f && f(); return { cancel: () => {} }; } }));
 const inView  = _M.inView  || ((sel, cb) => { try { const el = typeof sel === 'string' ? document.querySelector(sel) : sel; if (el) cb(el); } catch(e) {} });
 const scroll  = _M.scroll  || (() => {});
 const stagger = _M.stagger || (() => 0);
 
-/* ── Utils ────────────────────────────────────────────────────── */
+/* ── Utils ──────────────────────────────────────────────────── */
 function sanitize(str) {
   return String(str)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -22,7 +22,7 @@ function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
 function lerp(a, b, t) { return a + (b - a) * t; }
 function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
 
-/* ── Loader ───────────────────────────────────────────────────── */
+/* ── Loader ─────────────────────────────────────────────────── */
 function initLoader() {
   const loader = document.getElementById('loader');
   const fill   = loader?.querySelector('.loader-fill');
@@ -37,7 +37,7 @@ function initLoader() {
   else window.addEventListener('load', () => setTimeout(hide, 1600), { once: true });
 }
 
-/* ── Cursor ───────────────────────────────────────────────────── */
+/* ── Cursor ─────────────────────────────────────────────────── */
 function initCursor() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
   const dot  = document.getElementById('cursor');
@@ -103,7 +103,7 @@ function initNavigation() {
   sections.forEach(s => obs.observe(s));
 }
 
-/* ── 3D Depth Particles ───────────────────────────────────────── */
+/* ── 3D Depth Particles ─────────────────────────────────────── */
 function initParticles() {
   const canvas = document.getElementById('hero-canvas');
   if (!canvas) return;
@@ -187,7 +187,7 @@ function initParticles() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) cancelAnimationFrame(animId);
 }
 
-/* ── Typed text ────────────────────────────────────────────────── */
+/* ── Typed text ─────────────────────────────────────────────── */
 function initTypedText() {
   const el = document.getElementById('typed-role');
   if (!el) return;
@@ -203,7 +203,7 @@ function initTypedText() {
   setTimeout(type, 600);
 }
 
-/* ── Split-text hero name ─────────────────────────────────────── */
+/* ── Split-text hero name ───────────────────────────────────── */
 function initSplitText() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const nameEl = document.querySelector('.name-accent');
@@ -214,14 +214,16 @@ function initSplitText() {
   ).join('');
   const letters = nameEl.querySelectorAll('.sl');
   inView('.hero-title', () => {
-    letters.forEach((l, i) => animate(l,
-      { opacity: [0, 1], y: [70, 0], rotate: [10, 0] },
-      { duration: 0.65, delay: 0.3 + i * 0.065, easing: [0.16, 1, 0.3, 1] }
-    ));
+    letters.forEach((l, i) => {
+      animate(l,
+        { opacity: [0, 1], y: [70, 0], rotate: [10, 0] },
+        { duration: 0.65, delay: 0.3 + i * 0.065, easing: [0.16, 1, 0.3, 1] }
+      ).then(() => { l.style.opacity = '1'; });
+    });
   });
 }
 
-/* ── Counters ──────────────────────────────────────────────────── */
+/* ── Counters ───────────────────────────────────────────────── */
 function initCounters() {
   const counters = document.querySelectorAll('.stat-number[data-target]');
   if (!counters.length) return;
@@ -239,7 +241,7 @@ function initCounters() {
   });
 }
 
-/* ── Hero Scroll Parallax ─────────────────────────────────────── */
+/* ── Hero Scroll Parallax ───────────────────────────────────── */
 function initScrollParallax() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (window.matchMedia('(pointer: coarse)').matches) return;
@@ -261,7 +263,7 @@ function initScrollParallax() {
   }, { passive: true });
 }
 
-/* ── Hero spotlight (mouse-tracking radial) ────────────────────── */
+/* ── Hero spotlight (mouse-tracking radial) ─────────────────── */
 function initSpotlight() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
   const hero = document.getElementById('hero');
@@ -282,7 +284,7 @@ function initSpotlight() {
   });
 }
 
-/* ── 3D Card Tilt + Spotlight ─────────────────────────────────── */
+/* ── 3D Card Tilt + Spotlight ───────────────────────────────── */
 function initCardTilt() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
 
@@ -321,7 +323,7 @@ function initCardTilt() {
   });
 }
 
-/* ── Magnetic buttons ──────────────────────────────────────────── */
+/* ── Magnetic buttons ───────────────────────────────────────── */
 function initMagnetic() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
   document.querySelectorAll('.btn, .nav-cta').forEach(el => {
@@ -337,9 +339,10 @@ function initMagnetic() {
   });
 }
 
-/* ── Scroll reveal ────────────────────────────────────────────── */
+/* ── Scroll reveal ──────────────────────────────────────────── */
 function initScrollReveal() {
-  const els = document.querySelectorAll('.reveal-up');
+  // Skip elements already made visible by startEntryAnimations to avoid re-animating from opacity:0
+  const els = document.querySelectorAll('.reveal-up:not(.visible)');
   if (!els.length) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     els.forEach(el => el.classList.add('visible')); return;
@@ -349,7 +352,8 @@ function initScrollReveal() {
       if (!entry.isIntersecting) return;
       const el    = entry.target;
       const delay = parseFloat(getComputedStyle(el).getPropertyValue('--delay')) || 0;
-      animate(el, { opacity: [0, 1], y: [32, 0] }, { duration: 0.65, delay, easing: [0.16, 1, 0.3, 1] });
+      animate(el, { opacity: [0, 1], y: [32, 0] }, { duration: 0.65, delay, easing: [0.16, 1, 0.3, 1] })
+        .then(() => { el.style.opacity = '1'; });
       el.classList.add('visible');
       obs.unobserve(el);
     });
@@ -357,7 +361,7 @@ function initScrollReveal() {
   els.forEach(el => obs.observe(el));
 }
 
-/* ── Skill bars ────────────────────────────────────────────────── */
+/* ── Skill bars ─────────────────────────────────────────────── */
 function initSkillBars() {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   inView('.skills-grid', () => {
@@ -369,7 +373,7 @@ function initSkillBars() {
   }, { amount: 0.2 });
 }
 
-/* ── Project filters ───────────────────────────────────────────── */
+/* ── Project filters ────────────────────────────────────────── */
 function initProjectFilters() {
   const btns  = document.querySelectorAll('.filter-btn');
   const cards = document.querySelectorAll('.project-card');
@@ -392,7 +396,7 @@ function initProjectFilters() {
   });
 }
 
-/* ── Demo buttons ─────────────────────────────────────────────── */
+/* ── Demo buttons ───────────────────────────────────────────── */
 function initDemoButtons() {
   document.querySelectorAll('[data-coming-soon]').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -402,7 +406,7 @@ function initDemoButtons() {
   });
 }
 
-/* ── Contact form ─────────────────────────────────────────────── */
+/* ── Contact form ───────────────────────────────────────────── */
 function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
@@ -438,7 +442,7 @@ function initContactForm() {
   });
 }
 
-/* ── Toast ─────────────────────────────────────────────────────── */
+/* ── Toast ──────────────────────────────────────────────────── */
 function showToast(msg, type = 'info') {
   const toast = document.getElementById('toast');
   if (!toast) return;
@@ -449,19 +453,20 @@ function showToast(msg, type = 'info') {
   setTimeout(() => toast.classList.remove('show'), 3500);
 }
 
-/* ── Hero entry animations ──────────────────────────────────────── */
+/* ── Hero entry animations ──────────────────────────────────── */
 function startEntryAnimations() {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduced) { document.querySelectorAll('.reveal-up').forEach(el => el.classList.add('visible')); return; }
   document.querySelectorAll('#hero .reveal-up').forEach(el => {
     const delay = parseFloat(getComputedStyle(el).getPropertyValue('--delay')) || 0;
-    animate(el, { opacity: [0, 1], y: [40, 0] }, { duration: 0.75, delay, easing: [0.16, 1, 0.3, 1] });
+    animate(el, { opacity: [0, 1], y: [40, 0] }, { duration: 0.75, delay, easing: [0.16, 1, 0.3, 1] })
+      .then(() => { el.style.opacity = '1'; });
     el.classList.add('visible');
   });
   initScrollReveal();
 }
 
-/* ── Nav hover ────────────────────────────────────────────────── */
+/* ── Nav hover ──────────────────────────────────────────────── */
 function initNavHovers() {
   const logo = document.querySelector('.nav-logo');
   if (logo) logo.addEventListener('mouseenter', () =>
@@ -469,7 +474,7 @@ function initNavHovers() {
   );
 }
 
-/* ── Dynamic age ───────────────────────────────────────────────── */
+/* ── Dynamic age ────────────────────────────────────────────── */
 function initDynamicAge() {
   const el = document.getElementById('dynamic-age');
   if (!el) return;
@@ -479,13 +484,13 @@ function initDynamicAge() {
   el.textContent = age;
 }
 
-/* ── Footer year ───────────────────────────────────────────────── */
+/* ── Footer year ────────────────────────────────────────────── */
 function initYear() {
   const el = document.getElementById('footer-year');
   if (el) el.textContent = new Date().getFullYear();
 }
 
-/* ── Smooth scroll ─────────────────────────────────────────────── */
+/* ── Smooth scroll ──────────────────────────────────────────── */
 function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
@@ -497,7 +502,7 @@ function initSmoothScroll() {
   });
 }
 
-/* ── Form focus ────────────────────────────────────────────────── */
+/* ── Form focus ─────────────────────────────────────────────── */
 function initFormEffects() {
   document.querySelectorAll('.form-input').forEach(inp => {
     inp.addEventListener('focus', () => animate(inp, { scale: [1, 1.012] }, { duration: 0.2 }));
@@ -505,7 +510,7 @@ function initFormEffects() {
   });
 }
 
-/* ── Channel card arrows ─────────────────────────────────────────── */
+/* ── Channel card arrows ────────────────────────────────────── */
 function initChannelHovers() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
   document.querySelectorAll('.channel-card').forEach(card => {
@@ -516,7 +521,7 @@ function initChannelHovers() {
   });
 }
 
-/* ── Scroll-driven section color shift ──────────────────────────── */
+/* ── Scroll-driven section color shift ──────────────────────── */
 function initSectionColors() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const sections = ['about', 'skills', 'projects', 'contact'];
@@ -529,7 +534,7 @@ function initSectionColors() {
   });
 }
 
-/* ── Init ───────────────────────────────────────────────────────── */
+/* ── Init ───────────────────────────────────────────────────── */
 function init() {
   initLoader();
   initCursor();
