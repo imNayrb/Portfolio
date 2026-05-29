@@ -214,10 +214,12 @@ function initSplitText() {
   ).join('');
   const letters = nameEl.querySelectorAll('.sl');
   inView('.hero-title', () => {
-    letters.forEach((l, i) => animate(l,
-      { opacity: [0, 1], y: [70, 0], rotate: [10, 0] },
-      { duration: 0.65, delay: 0.3 + i * 0.065, easing: [0.16, 1, 0.3, 1] }
-    ));
+    letters.forEach((l, i) => {
+      animate(l,
+        { opacity: [0, 1], y: [70, 0], rotate: [10, 0] },
+        { duration: 0.65, delay: 0.3 + i * 0.065, easing: [0.16, 1, 0.3, 1] }
+      ).then(() => { l.style.opacity = '1'; });
+    });
   });
 }
 
@@ -339,7 +341,8 @@ function initMagnetic() {
 
 /* ── Scroll reveal ──────────────────────────────────────────── */
 function initScrollReveal() {
-  const els = document.querySelectorAll('.reveal-up');
+  // Skip elements already made visible by startEntryAnimations to avoid re-animating from opacity:0
+  const els = document.querySelectorAll('.reveal-up:not(.visible)');
   if (!els.length) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     els.forEach(el => el.classList.add('visible')); return;
@@ -349,7 +352,8 @@ function initScrollReveal() {
       if (!entry.isIntersecting) return;
       const el    = entry.target;
       const delay = parseFloat(getComputedStyle(el).getPropertyValue('--delay')) || 0;
-      animate(el, { opacity: [0, 1], y: [32, 0] }, { duration: 0.65, delay, easing: [0.16, 1, 0.3, 1] });
+      animate(el, { opacity: [0, 1], y: [32, 0] }, { duration: 0.65, delay, easing: [0.16, 1, 0.3, 1] })
+        .then(() => { el.style.opacity = '1'; });
       el.classList.add('visible');
       obs.unobserve(el);
     });
@@ -455,7 +459,8 @@ function startEntryAnimations() {
   if (reduced) { document.querySelectorAll('.reveal-up').forEach(el => el.classList.add('visible')); return; }
   document.querySelectorAll('#hero .reveal-up').forEach(el => {
     const delay = parseFloat(getComputedStyle(el).getPropertyValue('--delay')) || 0;
-    animate(el, { opacity: [0, 1], y: [40, 0] }, { duration: 0.75, delay, easing: [0.16, 1, 0.3, 1] });
+    animate(el, { opacity: [0, 1], y: [40, 0] }, { duration: 0.75, delay, easing: [0.16, 1, 0.3, 1] })
+      .then(() => { el.style.opacity = '1'; });
     el.classList.add('visible');
   });
   initScrollReveal();
